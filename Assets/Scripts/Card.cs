@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Card : MonoBehaviour
 {
     public CardScriptableObject cardSO;
-    //private HandController theHC;
+    private HandController theHC;
     public CardPlacePoint assignedPlace;
 
     public int currentHealth;
@@ -52,7 +52,7 @@ public class Card : MonoBehaviour
 
         SetupCard();
 
-        //theHC = FindObjectOfType<HandController>();
+        theHC = FindObjectOfType<HandController>();
     }
 
     private void Update()
