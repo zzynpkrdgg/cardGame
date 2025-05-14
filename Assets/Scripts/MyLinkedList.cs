@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class MyLinkedList<T>
 {
-    private Node<T> head;
-    public int count;
+    private int count; 
+    public int Count => count;
+    public Node<T> head;
+   
     public MyLinkedList()
     {
 
@@ -72,4 +74,5 @@ public class MyLinkedList<T>
             current = current.next;
         }
     }
+
 }
