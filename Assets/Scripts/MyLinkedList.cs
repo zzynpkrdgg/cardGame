@@ -25,13 +25,12 @@ public class MyLinkedList<T>
             while (current.next != null)
             {
                 current = current.next;
-                current.next = newNode;
-
             }
-            count++;
+            current.next = newNode;
         }
-        
+        count++;
     }
+
     public T GetAt(int index) { 
     
         if (index < 0 || index >= count)

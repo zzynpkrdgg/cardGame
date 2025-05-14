@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Mono.Cecil;
 using NUnit.Framework;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HandController : MonoBehaviour
@@ -8,6 +9,7 @@ public class HandController : MonoBehaviour
     public static HandController instance;
 
     public MyLinkedList<Card> heldCard = new MyLinkedList<Card>();
+    public List<Card> tempCard = new List<Card>();
 
     public Transform minPos, maxPos;
     public List<Vector3> cardPositions = new List<Vector3>();
@@ -19,37 +21,43 @@ public class HandController : MonoBehaviour
 
     private void Start()
     {
+        SetupLinkedList();
         SetCardPositionsInHand();
     }
 
+    private void SetupLinkedList()
+    {
+        for (int i = 0; i < tempCard.Count; i++)
+            heldCard.Add(tempCard[i]);
+    }
 
     public void SetCardPositionsInHand()
     {
         cardPositions.Clear();
-
+        Debug.Log("asdf");
         Vector3 distanceBetweenPoints = Vector3.zero;
+        Debug.Log(heldCard.Count);
         if (heldCard.Count > 1)
         {
             distanceBetweenPoints = (maxPos.position - minPos.position) / (heldCard.Count - 1);
+            Debug.Log("xxx");
         }
 
-        SetCardToHand(distanceBetweenPoints);
-        
-    }
-
-    private void SetCardToHand(Vector3 distanceBetweenPoints)
-    {
         for (int i = 0; i < heldCard.Count; i++)
         {
             Vector3 targetPos = minPos.position + (distanceBetweenPoints * i);
             cardPositions.Add(targetPos);
 
             Card card = heldCard.GetAt(i);
-          
-            card.MoveToPoint(targetPos,minPos.rotation);
-            
+
+            card.MoveToPoint(targetPos, minPos.rotation);
+
             card.inHand = true;
             card.handPosition = i;
+            Debug.Log("Working");
+
+            /*cardPositions.Add(minPos.position + (distanceBetweenPoints * i));
+            heldCard.GetAt(i).transform.position = cardPositions[i];*/
         }
     }
 
