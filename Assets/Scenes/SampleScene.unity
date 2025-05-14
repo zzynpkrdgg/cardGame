@@ -377,9 +377,8 @@ GameObject:
   - component: {fileID: 255839807}
   - component: {fileID: 255839809}
   - component: {fileID: 255839808}
-  - component: {fileID: 255839810}
   m_Layer: 0
-  m_Name: Card_Frame (4)
+  m_Name: Card_Frame 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -476,19 +475,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &255839810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 255839806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b42fb6c846765e4b804f4166663b93a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPlayerPoint: 0
 --- !u!1 &294713878
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,7 +487,7 @@ GameObject:
   - component: {fileID: 294713881}
   - component: {fileID: 294713880}
   m_Layer: 0
-  m_Name: Card_Frame (3)
+  m_Name: Card_Frame 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -867,9 +853,8 @@ GameObject:
   - component: {fileID: 643554807}
   - component: {fileID: 643554809}
   - component: {fileID: 643554808}
-  - component: {fileID: 643554810}
   m_Layer: 0
-  m_Name: Card_Frame (1)
+  m_Name: Card_Frame 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -966,19 +951,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &643554810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 643554806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b42fb6c846765e4b804f4166663b93a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPlayerPoint: 0
 --- !u!1 &673394754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1726,12 +1698,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca8cdcd3088a0f4f852e6875d85c678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardSO: {fileID: 11400000, guid: 5d6d371bcc2f4d44095a712979b3e9b4, type: 2}
   currentHealth: 5
   AttackPower: 2
   manaCost: 3
   healthText: {fileID: 1292943174}
   attackText: {fileID: 2016811556}
   manaText: {fileID: 673394755}
+  nameText: {fileID: 1623476918}
+  actionDescriptionText: {fileID: 1420037776}
+  loreText: {fileID: 138393117}
+  characterArt: {fileID: 867877558}
 --- !u!1 &1088820291
 GameObject:
   m_ObjectHideFlags: 0
@@ -2117,9 +2094,8 @@ GameObject:
   - component: {fileID: 1450151797}
   - component: {fileID: 1450151799}
   - component: {fileID: 1450151798}
-  - component: {fileID: 1450151800}
   m_Layer: 0
-  m_Name: Card_Frame (2)
+  m_Name: Card_Frame 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2216,19 +2192,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1450151800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1450151796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b42fb6c846765e4b804f4166663b93a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPlayerPoint: 0
 --- !u!1 &1474607421
 GameObject:
   m_ObjectHideFlags: 0
@@ -2240,9 +2203,8 @@ GameObject:
   - component: {fileID: 1474607422}
   - component: {fileID: 1474607425}
   - component: {fileID: 1474607424}
-  - component: {fileID: 1474607426}
   m_Layer: 0
-  m_Name: Card_Frame
+  m_Name: Card_Frame 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2339,19 +2301,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1474607426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1474607421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b42fb6c846765e4b804f4166663b93a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPlayerPoint: 0
 --- !u!1 &1550183565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2576,7 +2525,7 @@ MonoBehaviour:
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 10
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 1
