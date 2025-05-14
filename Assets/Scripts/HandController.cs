@@ -6,19 +6,22 @@ using UnityEngine;
 public class HandController : MonoBehaviour
 {
     public static HandController instance;
-    private void Awake()
-    {
-        instance = this;
-    }
+
     public MyLinkedList<Card> heldCard = new MyLinkedList<Card>();
 
     public Transform minPos, maxPos;
     public List<Vector3> cardPositions = new List<Vector3>();
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         SetCardPositionsInHand();
     }
+
 
     public void SetCardPositionsInHand()
     {
@@ -31,16 +34,17 @@ public class HandController : MonoBehaviour
         }
 
         SetCardToHand(distanceBetweenPoints);
+        
     }
 
     private void SetCardToHand(Vector3 distanceBetweenPoints)
     {
         for (int i = 0; i < heldCard.Count; i++)
         {
-            Card card=heldCard.GetAt(i);
-          
             Vector3 targetPos = minPos.position + (distanceBetweenPoints * i);
             cardPositions.Add(targetPos);
+
+            Card card = heldCard.GetAt(i);
           
             card.MoveToPoint(targetPos,minPos.rotation);
             

@@ -94,17 +94,17 @@ public class Card : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && justPressed == false)
             {
-                //hit = PlaceCard(ray);
+                hit = PlaceCard(ray);
             }
         }
 
         justPressed = false;
     }
 
-    /*private RaycastHit PlaceCard(Ray ray)
+    private RaycastHit PlaceCard(Ray ray)
     {
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 100f, whatIsPlacement)
+        if (Physics.Raycast(ray, out hit, 100f, whatIsPlacement))
         {
             CardPlacePoint selectedPoint = hit.collider.GetComponent<CardPlacePoint>();
 
@@ -120,7 +120,7 @@ public class Card : MonoBehaviour
                     inHand = false;
                     isSelected = false;
 
-                    //theHC.RemoveCardFromHand(this);
+                    theHC.RemoveCardFromHand(this);
 
                     BattleController.instance.SpendPlayerMana(manaCost);
                 }
@@ -136,7 +136,7 @@ public class Card : MonoBehaviour
         else
             ReturnToHand();
         return hit;
-    }*/
+    }
 
     private void HandleMove()
     {
@@ -152,14 +152,14 @@ public class Card : MonoBehaviour
 
     private void OnMouseOver()
     {
-       // if (inHand)
-            //MoveToPoint(theHC.cardPositions[handPosition] + new Vector3(0f, 1f, .5f), Quaternion.identity);
+        if (inHand)
+            MoveToPoint(theHC.cardPositions[handPosition] + new Vector3(0f, 1f, .5f), Quaternion.identity);
     }
 
     private void OnMouseExit()
     {
-       // if (inHand)
-            //MoveToPoint(theHC.cardPositions[handPosition], theHC.minPos.rotation);
+        if (inHand)
+            MoveToPoint(theHC.cardPositions[handPosition], theHC.minPos.rotation);
     }
 
     /*private void OnMouseDown()
@@ -178,7 +178,7 @@ public class Card : MonoBehaviour
         isSelected = false;
         col.enabled = true;
 
-        //MoveToPoint(theHC.cardPositions[handPosition], theHC.minPos.rotation);
+        MoveToPoint(theHC.cardPositions[handPosition], theHC.minPos.rotation);
     }
 
 }
