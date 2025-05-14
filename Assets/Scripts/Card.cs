@@ -1,13 +1,16 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
     public CardScriptableObject cardSO;
+    private HandController theHC;
+    public CardPlacePoint assignedPlace;
 
     public int currentHealth;
-    public int AttackPower;
+    public int attackPower;
     public int manaCost;
 
     public TMP_Text healthText;
@@ -16,24 +19,57 @@ public class Card : MonoBehaviour
     public TMP_Text nameText;
     public TMP_Text actionDescriptionText;
     public TMP_Text loreText;
-
     public Image characterArt;
 
+    [Header("Move Effects")]
+    public float moveSpeed = 5f; public float rotateSpeed = 540f;
+    public bool inHand;
+    public int handPosition;
 
+    private Vector3 targetPoint;
+    private Quaternion targetRot;
+    private bool isSelected;
+    private Collider col;
+    private bool justPressed;
+
+    public LayerMask whatIsDesktop;
+    public LayerMask whatIsPlacement;
+
+
+    private void Awake()
+    {
+        col = GetComponent<Collider>();
+    }
+
+    [System.Obsolete]
     private void Start()
     {
+        if (targetPoint == Vector3.zero)
+        {
+            targetPoint = transform.position;
+            targetRot = transform.rotation;
+        }
+
         SetupCard();
+
+        theHC = FindObjectOfType<HandController>();
+    }
+
+    private void Update()
+    {
+        HandleMove();
+        PickCards();
     }
 
     private void SetupCard()
     {
         currentHealth = cardSO.currentHealth;
-        AttackPower = cardSO.attackPower;
+        attackPower = cardSO.attackPower;
         manaCost = cardSO.manaCost;
 
 
         healthText.text = currentHealth.ToString();
-        attackText.text = AttackPower.ToString();
+        attackText.text = attackPower.ToString();
         manaText.text = manaCost.ToString();
 
         nameText.text = cardSO.cardName;
@@ -42,4 +78,107 @@ public class Card : MonoBehaviour
 
         characterArt.sprite = cardSO.character;
     }
+
+    private void PickCards()
+    {
+        if (isSelected)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100f, whatIsDesktop))
+                MoveToPoint(hit.point + new Vector3(0f, 2f, 0f), Quaternion.identity);
+
+            if (Input.GetMouseButtonDown(1))
+                ReturnToHand();
+
+            if (Input.GetMouseButtonDown(0) && justPressed == false)
+            {
+                //hit = PlaceCard(ray);
+            }
+        }
+
+        justPressed = false;
+    }
+
+    /*private RaycastHit PlaceCard(Ray ray)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 100f, whatIsPlacement)
+        {
+            CardPlacePoint selectedPoint = hit.collider.GetComponent<CardPlacePoint>();
+
+            if (selectedPoint.activeCard == null)
+            {
+                if (BattleController.instance.playerMana >= manaCost)
+                {
+                    selectedPoint.activeCard = this;
+                    assignedPlace = selectedPoint;
+
+                    MoveToPoint(selectedPoint.transform.position, Quaternion.identity);
+
+                    inHand = false;
+                    isSelected = false;
+
+                    //theHC.RemoveCardFromHand(this);
+
+                    BattleController.instance.SpendPlayerMana(manaCost);
+                }
+                else
+                {
+                    ReturnToHand();
+                    //UIController.instance.ShowManaWarning();
+                }
+            }
+            else
+                ReturnToHand();
+        }
+        else
+            ReturnToHand();
+        return hit;
+    }*/
+
+    private void HandleMove()
+    {
+        transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotateSpeed * Time.deltaTime);
+    }
+
+    public void MoveToPoint(Vector3 pointToMove, Quaternion rotToMatch)
+    {
+        targetPoint = pointToMove;
+        targetRot = rotToMatch;
+    }
+
+    private void OnMouseOver()
+    {
+       // if (inHand)
+            //MoveToPoint(theHC.cardPositions[handPosition] + new Vector3(0f, 1f, .5f), Quaternion.identity);
+    }
+
+    private void OnMouseExit()
+    {
+       // if (inHand)
+            //MoveToPoint(theHC.cardPositions[handPosition], theHC.minPos.rotation);
+    }
+
+    /*private void OnMouseDown()
+    {
+        if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && isPlayer)
+        {
+            isSelected = true;
+            col.enabled = false;
+
+            justPressed = true;
+        }
+    }*/
+
+    public void ReturnToHand()
+    {
+        isSelected = false;
+        col.enabled = true;
+
+        //MoveToPoint(theHC.cardPositions[handPosition], theHC.minPos.rotation);
+    }
+
 }
