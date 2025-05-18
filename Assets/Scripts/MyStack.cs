@@ -1,4 +1,6 @@
+using System.Collections.ObjectModel;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class MyStack <T>
 {
@@ -34,5 +36,12 @@ public class MyStack <T>
         if (IsEmpty())
             throw new System.InvalidOperationException("Stack is empty.");
         return top.data;
+    }
+    public void AddRange(IEnumerable<T> Collection)
+    {
+        foreach (var item in Collection)
+        {
+            Push(item);
+        }
     }
 }

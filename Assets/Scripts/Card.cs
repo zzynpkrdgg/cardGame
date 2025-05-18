@@ -61,7 +61,7 @@ public class Card : MonoBehaviour
         PickCards();
     }
 
-    private void SetupCard()
+    public void SetupCard()
     {
         currentHealth = cardSO.currentHealth;
         attackPower = cardSO.attackPower;
