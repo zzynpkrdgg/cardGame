@@ -29,7 +29,7 @@ public class Card : MonoBehaviour
     private Vector3 targetPoint;
     private Quaternion targetRot;
     private bool isSelected;
-    private Collider col;
+    private Collider theCol;
     private bool justPressed;
 
     public LayerMask whatIsDesktop;
@@ -38,7 +38,7 @@ public class Card : MonoBehaviour
 
     private void Awake()
     {
-        col = GetComponent<Collider>();
+        theCol = GetComponent<Collider>();
     }
 
     [System.Obsolete]
@@ -104,11 +104,11 @@ public class Card : MonoBehaviour
     private RaycastHit PlaceCard(Ray ray)
     {
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 100f, whatIsPlacement))
+        if (Physics.Raycast(ray, out hit, 100f, whatIsPlacement) && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive)
         {
             CardPlacePoint selectedPoint = hit.collider.GetComponent<CardPlacePoint>();
 
-            if (selectedPoint.activeCard == null)
+            if (selectedPoint.activeCard == null && selectedPoint.isPlayerPoint)
             {
                 if (BattleController.instance.playerMana >= manaCost)
                 {
@@ -127,7 +127,7 @@ public class Card : MonoBehaviour
                 else
                 {
                     ReturnToHand();
-                    //UIController.instance.ShowManaWarning();
+                    UIController.instance.ShowManaWarning();
                 }
             }
             else
@@ -162,21 +162,21 @@ public class Card : MonoBehaviour
             MoveToPoint(theHC.cardPositions[handPosition], theHC.minPos.rotation);
     }
 
-    /*private void OnMouseDown()
+    private void OnMouseDown()
     {
-        if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && isPlayer)
+        if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive) 
         {
             isSelected = true;
-            col.enabled = false;
+            theCol.enabled = false;
 
             justPressed = true;
         }
-    }*/
+    }
 
     public void ReturnToHand()
     {
         isSelected = false;
-        col.enabled = true;
+        theCol.enabled = true;
 
         MoveToPoint(theHC.cardPositions[handPosition], theHC.minPos.rotation);
     }

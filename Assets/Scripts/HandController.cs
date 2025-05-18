@@ -34,13 +34,10 @@ public class HandController : MonoBehaviour
     public void SetCardPositionsInHand()
     {
         cardPositions.Clear();
-        Debug.Log("asdf");
         Vector3 distanceBetweenPoints = Vector3.zero;
-        Debug.Log(heldCard.Count);
         if (heldCard.Count > 1)
         {
             distanceBetweenPoints = (maxPos.position - minPos.position) / (heldCard.Count - 1);
-            Debug.Log("xxx");
         }
 
         for (int i = 0; i < heldCard.Count; i++)
@@ -54,7 +51,6 @@ public class HandController : MonoBehaviour
 
             card.inHand = true;
             card.handPosition = i;
-            Debug.Log("Working");
 
             /*cardPositions.Add(minPos.position + (distanceBetweenPoints * i));
             heldCard.GetAt(i).transform.position = cardPositions[i];*/
@@ -64,10 +60,8 @@ public class HandController : MonoBehaviour
     public void RemoveCardFromHand(Card cardToRemove)
     {
         Card cardInHand = heldCard.GetAt(cardToRemove.handPosition);
-        if (cardInHand== cardToRemove)
-        {
-            heldCard.RemoveAt(cardToRemove.handPosition);
-        }
+        if (cardInHand == cardToRemove)
+            heldCard.RemoveAt(cardToRemove.handPosition);        
         else
             Debug.LogError("Card position " + cardToRemove.handPosition + " is not the card being removed from hand");
 

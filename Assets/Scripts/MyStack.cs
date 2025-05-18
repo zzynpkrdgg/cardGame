@@ -25,7 +25,6 @@ public class MyStack <T>
         top=top.next;
         count--;
         return data;
-
     }
     public bool IsEmpty()
     {

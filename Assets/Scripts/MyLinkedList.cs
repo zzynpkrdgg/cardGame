@@ -73,5 +73,31 @@ public class MyLinkedList<T>
             current = current.next;
         }
     }
+    public bool Remove(T data)
+    {
+        if (head == null)
+            return false;
+
+        if (head.data.Equals(data))
+        {
+            head = head.next;
+            count--;
+            return true;
+        }
+
+        Node<T> current = head;
+        while (current.next != null)
+        {
+            if (current.next.data.Equals(data))
+            {
+                current.next = current.next.next;
+                count--;
+                return true;
+            }
+            current = current.next;
+        }
+
+        return false; // not found
+    }
 
 }
