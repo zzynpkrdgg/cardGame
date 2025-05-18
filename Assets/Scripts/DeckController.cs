@@ -19,6 +19,7 @@ public class DeckController : MonoBehaviour
         activeCards =new MyStack<CardScriptableObject>();
         List<CardScriptableObject> tempDeck= new List<CardScriptableObject>();
        tempDeck.AddRange(deckToUse);
+        Shuffle(tempDeck);
         for (int i = 0; i < deckToUse.Count; i++)
         {
             activeCards.Push(tempDeck[i]);
@@ -53,6 +54,16 @@ public class DeckController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T))
         {
             DrawCardToHand();
+        }
+    }
+    public void Shuffle(List<CardScriptableObject> list) 
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            int rand=Random.Range(i,list.Count);
+            var temp= list[i];
+            list[i] = list[rand];
+            list[rand] = temp;
         }
     }
 }
