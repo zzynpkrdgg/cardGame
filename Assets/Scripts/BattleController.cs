@@ -15,6 +15,8 @@ public class BattleController : MonoBehaviour
     public MyQueue<TurnOrder> turnQueue = new MyQueue<TurnOrder>();
     public TurnOrder currentPhase;
 
+    public Transform discardPoint;
+
     private void Awake()
     {
         instance = this;
@@ -77,7 +79,8 @@ public class BattleController : MonoBehaviour
                 break;
 
             case TurnOrder.playerCardAttacks:
-                AdvanceTurn();
+
+                CardPointsController.instance.PlayerAttack();
                 break;
 
             case TurnOrder.enemyActive:
@@ -86,9 +89,8 @@ public class BattleController : MonoBehaviour
                 break;
 
             case TurnOrder.enemyCardAttacks:
-                Debug.Log("Skipping enemy attack");
-                AdvanceTurn();
                 ResetTurnQueue();
+                CardPointsController.instance.EnemyAttack();
                 break;
         }
     }
@@ -113,8 +115,8 @@ public class BattleController : MonoBehaviour
 
     public void EndPlayerTurn()
     {
+        AdvanceTurn();
         UIController.instance.endTurnButton.SetActive(false);
         UIController.instance.drawButton.SetActive(false);
-        AdvanceTurn();
     }
 }

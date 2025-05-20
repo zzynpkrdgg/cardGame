@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class Card : MonoBehaviour
 {
     public CardScriptableObject cardSO;
+    public Animator anim;
     private HandController theHC;
-    public CardPlacePoint assignedPlace;
 
     public int currentHealth;
     public int attackPower;
     public int manaCost;
+
+    public bool isPlayer;
 
     public TMP_Text healthText;
     public TMP_Text attackText;
@@ -34,6 +36,7 @@ public class Card : MonoBehaviour
 
     public LayerMask whatIsDesktop;
     public LayerMask whatIsPlacement;
+    public CardPlacePoint assignedPlace;
 
 
     private void Awake()
@@ -67,10 +70,7 @@ public class Card : MonoBehaviour
         attackPower = cardSO.attackPower;
         manaCost = cardSO.manaCost;
 
-
-        healthText.text = currentHealth.ToString();
-        attackText.text = attackPower.ToString();
-        manaText.text = manaCost.ToString();
+        UpdateCardDisplay();
 
         nameText.text = cardSO.cardName;
         actionDescriptionText.text = cardSO.actionDescription;
@@ -152,19 +152,19 @@ public class Card : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (inHand)
+        if (inHand && isPlayer)
             MoveToPoint(theHC.cardPositions[handPosition] + new Vector3(0f, 1f, .5f), Quaternion.identity);
     }
 
     private void OnMouseExit()
     {
-        if (inHand)
+        if (inHand && isPlayer)
             MoveToPoint(theHC.cardPositions[handPosition], theHC.minPos.rotation);
     }
 
     private void OnMouseDown()
     {
-        if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive) 
+        if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.playerActive && isPlayer) 
         {
             isSelected = true;
             theCol.enabled = false;
@@ -181,4 +181,28 @@ public class Card : MonoBehaviour
         MoveToPoint(theHC.cardPositions[handPosition], theHC.minPos.rotation);
     }
 
+    public void DamageCard(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            assignedPlace.activeCard = null;
+            MoveToPoint(BattleController.instance.discardPoint.position, BattleController.instance.discardPoint.rotation);
+            anim.SetTrigger("jump");
+            Destroy(gameObject, 5f);
+        }
+
+        anim.SetTrigger("hurt");
+
+        UpdateCardDisplay();
+    }
+
+    public void UpdateCardDisplay()
+    {
+        healthText.text = currentHealth.ToString();
+        attackText.text = attackPower.ToString();
+        manaText.text = manaCost.ToString();
+    }
 }
