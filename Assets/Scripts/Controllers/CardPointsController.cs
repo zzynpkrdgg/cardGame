@@ -34,7 +34,7 @@ public class CardPointsController : MonoBehaviour
                 }
                 else
                 {
-                    //attack enemy face
+                    BattleController.instance.DamageEnemy(playerCardPoints[i].activeCard.attackPower);
                 }
                 playerCardPoints[i].activeCard.anim.SetTrigger("attack");
                 yield return new WaitForSeconds(waitBetweenAttacks);
@@ -64,7 +64,7 @@ public class CardPointsController : MonoBehaviour
                 }
                 else
                 {
-                    //attack my face
+                    BattleController.instance.DamagePlayer(enemyCardPoints[i].activeCard.attackPower);
                 }
                 enemyCardPoints[i].activeCard.anim.SetTrigger("attack");
                 yield return new WaitForSeconds(waitBetweenAttacks);
