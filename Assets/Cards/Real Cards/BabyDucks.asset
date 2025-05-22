@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a21ddfa09e1d5524bbe8bdc55d866c73, type: 3}
-  m_Name: BombardinoCrocodilo
+  m_Name: BabyDucks
   m_EditorClassIdentifier: 
-  cardName: Bombardino Crocodilo
-  actionDescription: 'Play: Deal 2 damage to all enemies. '
-  cardLore: The crocodile who has a power of a battle jet.
-  currentHealth: 9
-  attackPower: 9
-  manaCost: 8
-  character: {fileID: 21300000, guid: 272d9639620e2c74c9c4cca8d243723f, type: 3}
+  cardName: Baby Ducks
+  actionDescription: 'Attack: Deal 5 To All Enemies'
+  cardLore: 5 Baby Ducks Comes Together
+  currentHealth: 12
+  attackPower: 8
+  manaCost: 9
+  character: {fileID: 0}

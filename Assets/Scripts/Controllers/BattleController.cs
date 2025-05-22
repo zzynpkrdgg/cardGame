@@ -93,8 +93,7 @@ public class BattleController : MonoBehaviour
                 break;
 
             case TurnOrder.enemyActive:
-                Debug.Log("Skipping enemy active");
-                AdvanceTurn();
+                EnemyController.instance.StartAction();
                 break;
 
             case TurnOrder.enemyCardAttacks:
