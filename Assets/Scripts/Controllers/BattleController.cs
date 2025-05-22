@@ -8,6 +8,8 @@ public class BattleController : MonoBehaviour
     public int maxMana = 10;
     public int playerMana;
     public int startingCardsAmount = 5;
+    public int playerHealth;
+    public int enemyHealth;
 
     private int currentPlayerMaxMana;
 
@@ -27,8 +29,15 @@ public class BattleController : MonoBehaviour
         SetupQueue();
         currentPlayerMaxMana = startingMana;
         FillPlayerMana();
+        SetupHealthBars();
 
         DeckController.Instance.DrawMultipleCards(startingCardsAmount);
+    }
+
+    private static void SetupHealthBars()
+    {
+        UIController.instance.UpdatePlayerHealth();
+        UIController.instance.UpdateEnemyHealth();
     }
 
     private void SetupQueue()
@@ -118,5 +127,48 @@ public class BattleController : MonoBehaviour
         AdvanceTurn();
         UIController.instance.endTurnButton.SetActive(false);
         UIController.instance.drawButton.SetActive(false);
+    }
+
+    public void DamagePlayer(int damageAmount)
+    {
+        if (playerHealth > 0)
+        {
+            playerHealth -= damageAmount;
+
+            if (playerHealth <= 0)
+            {
+                //End Battle
+            }
+            SetupHealthBars();
+            DamageIndicatorPlayer(damageAmount);
+        }
+    }
+
+    public void DamageEnemy(int damageAmount)
+    {
+        if (enemyHealth > 0)
+        {
+            enemyHealth -= damageAmount;
+            if (enemyHealth <= 0)
+            {
+                //end battle
+            }
+            SetupHealthBars();
+            DamageIndicatorEnemy(damageAmount);
+        }
+    }
+
+    private static void DamageIndicatorEnemy(int damageAmount)
+    {
+        UIDamageIndicator damageClone = Instantiate(UIController.instance.enemyDamage, UIController.instance.enemyDamage.transform.parent);
+        damageClone.damageText.text = damageAmount.ToString();
+        damageClone.gameObject.SetActive(true);
+    }
+
+    private static void DamageIndicatorPlayer(int damageAmount)
+    {
+        UIDamageIndicator damageClone = Instantiate(UIController.instance.playerDamage, UIController.instance.playerDamage.transform.parent);
+        damageClone.damageText.text = damageAmount.ToString();
+        damageClone.gameObject.SetActive(true);
     }
 }

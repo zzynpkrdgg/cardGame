@@ -8,7 +8,10 @@ public class UIController : MonoBehaviour
     [SerializeField] private TMP_Text playerManaText;
     [SerializeField] private GameObject manaWarning;
     [SerializeField] private float manaWarnTimer = 1.5f;
+    [SerializeField] private TMP_Text playerHealthText;
+    [SerializeField] private TMP_Text enemyHealthText;
     public GameObject drawButton, endTurnButton;
+    public UIDamageIndicator playerDamage, enemyDamage;
 
     private float counterManaWarning;
 
@@ -52,5 +55,15 @@ public class UIController : MonoBehaviour
     public void EndTurnButton()
     {
         BattleController.instance.EndPlayerTurn();
+    }
+
+    public void UpdatePlayerHealth()
+    {
+        playerHealthText.text = "Player: " + BattleController.instance.playerHealth;
+    }
+
+    public void UpdateEnemyHealth()
+    {
+        enemyHealthText.text = "Enemy: " + BattleController.instance.enemyHealth;
     }
 }
