@@ -13,6 +13,12 @@ public class EnemyController : MonoBehaviour
     public Card cardToSpawn;
     public Transform cardSpawnPoint;
 
+    public enum AIType { placeFromDeck, handRandomPlace, handDefensive, handAttacking}
+    public AIType enemyAIType;
+
+    private List<CardScriptableObject> cardsInHand = new List<CardScriptableObject>();
+    public int startHandSize;
+
     private void Awake()
     {
         instance = this;
@@ -21,6 +27,8 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         SetupDeck();
+        if(enemyAIType != AIType.placeFromDeck)
+            SetupHand();
     }
 
     public void SetupDeck()
@@ -60,13 +68,50 @@ public class EnemyController : MonoBehaviour
         int randomPoint = Random.Range(0, cardPoints.Count);
         CardPlacePoint selectedPoint = cardPoints[randomPoint];
 
+        if (enemyAIType == AIType.placeFromDeck || enemyAIType == AIType.handRandomPlace)
+            PlaceRandom(cardPoints, ref randomPoint, ref selectedPoint);
+
+        SetupAIType(selectedPoint);
+
+        yield return new WaitForSeconds(.7f);
+
+        BattleController.instance.AdvanceTurn();
+    }
+
+    private static void PlaceRandom(List<CardPlacePoint> cardPoints, ref int randomPoint, ref CardPlacePoint selectedPoint)
+    {
+        cardPoints.Remove(selectedPoint);
+
         while (selectedPoint.activeCard != null && cardPoints.Count > 0)
         {
             randomPoint = Random.Range(0, cardPoints.Count);
             selectedPoint = cardPoints[randomPoint];
             cardPoints.RemoveAt(randomPoint);
         }
+    }
 
+    private void SetupAIType(CardPlacePoint selectedPoint)
+    {
+        switch (enemyAIType)
+        {
+
+            case AIType.placeFromDeck:
+
+                PlaceFromDeck(selectedPoint);
+                break;
+            case AIType.handRandomPlace:
+                break;
+
+            case AIType.handDefensive:
+                break;
+
+            case AIType.handAttacking:
+                break;
+        }
+    }
+
+    private void PlaceFromDeck(CardPlacePoint selectedPoint)
+    {
         if (selectedPoint.activeCard == null)
         {
             Card newCard = Instantiate(cardToSpawn, cardSpawnPoint.position, cardSpawnPoint.rotation);
@@ -78,9 +123,17 @@ public class EnemyController : MonoBehaviour
             selectedPoint.activeCard = newCard;
             newCard.assignedPlace = selectedPoint;
         }
+    }
 
-        yield return new WaitForSeconds(.7f);
+    private void SetupHand()
+    {
+        for (int i = 0; i < startHandSize; i++)
+        {
+            if (activeCards.Count == 0)
+                SetupDeck();
 
-        BattleController.instance.AdvanceTurn();
+            cardsInHand.Add(activeCards[0]);
+            activeCards.RemoveAt(0);
+        }
     }
 }

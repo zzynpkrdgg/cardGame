@@ -6,6 +6,7 @@ public class UIController : MonoBehaviour
     public static UIController instance;
 
     [SerializeField] private TMP_Text playerManaText;
+    [SerializeField] private TMP_Text enemyManaText;
     [SerializeField] private GameObject manaWarning;
     [SerializeField] private float manaWarnTimer = 1.5f;
     [SerializeField] private TMP_Text playerHealthText;
@@ -39,6 +40,11 @@ public class UIController : MonoBehaviour
     public void SetManaText(int manaAmount)
     {
         playerManaText.text = "Mana: " + manaAmount;
+    }
+
+    public void SetEnemyManaText(int manaAmount)
+    {
+        enemyManaText.text = "Enemy Mana: " + manaAmount;
     }
 
     public void DrawCardButton()
