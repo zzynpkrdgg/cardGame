@@ -62,6 +62,15 @@ public class EnemyController : MonoBehaviour
 
         yield return new WaitForSeconds(.5f);
 
+        if (enemyAIType != AIType.placeFromDeck)
+        {
+            cardsInHand.Add(activeCards[0]);
+            activeCards.RemoveAt(0);
+
+            if (activeCards.Count == 0)
+                SetupDeck();
+        }
+
         List<CardPlacePoint> cardPoints = new List<CardPlacePoint>();
         cardPoints.AddRange(CardPointsController.instance.enemyCardPoints);
 
@@ -71,7 +80,47 @@ public class EnemyController : MonoBehaviour
         if (enemyAIType == AIType.placeFromDeck || enemyAIType == AIType.handRandomPlace)
             PlaceRandom(cardPoints, ref randomPoint, ref selectedPoint);
 
-        SetupAIType(selectedPoint);
+        CardScriptableObject selectedCard = null;
+        int iterations = 0;
+
+        switch (enemyAIType)
+        {
+
+            case AIType.placeFromDeck:
+
+                PlaceFromDeck(selectedPoint);
+
+                break;
+
+            case AIType.handRandomPlace:
+
+                selectedCard = SelectedCardToPlay();
+
+                iterations = 50;
+                while (selectedCard != null && selectedPoint.activeCard == null && iterations > 0)
+                {
+                    PlayCard(selectedCard, selectedPoint);
+                    selectedCard = SelectedCardToPlay();
+                    iterations--;
+
+                    yield return new WaitForSeconds(CardPointsController.instance.waitBetweenAttacks);
+
+                    while (selectedPoint.activeCard != null && cardPoints.Count > 0)
+                    {
+                        randomPoint = Random.Range(0, cardPoints.Count);
+                        selectedPoint = cardPoints[randomPoint];
+                        cardPoints.RemoveAt(randomPoint);
+                    }
+                }
+
+                break;
+
+            case AIType.handDefensive:
+                break;
+
+            case AIType.handAttacking:
+                break;
+        }
 
         yield return new WaitForSeconds(.7f);
 
@@ -87,26 +136,6 @@ public class EnemyController : MonoBehaviour
             randomPoint = Random.Range(0, cardPoints.Count);
             selectedPoint = cardPoints[randomPoint];
             cardPoints.RemoveAt(randomPoint);
-        }
-    }
-
-    private void SetupAIType(CardPlacePoint selectedPoint)
-    {
-        switch (enemyAIType)
-        {
-
-            case AIType.placeFromDeck:
-
-                PlaceFromDeck(selectedPoint);
-                break;
-            case AIType.handRandomPlace:
-                break;
-
-            case AIType.handDefensive:
-                break;
-
-            case AIType.handAttacking:
-                break;
         }
     }
 
@@ -135,5 +164,43 @@ public class EnemyController : MonoBehaviour
             cardsInHand.Add(activeCards[0]);
             activeCards.RemoveAt(0);
         }
+    }
+
+    public void PlayCard(CardScriptableObject cardSO, CardPlacePoint placePoint)
+    {
+        Card newCard = Instantiate(cardToSpawn, cardSpawnPoint.position, cardSpawnPoint.rotation);
+        newCard.cardSO = cardSO;
+        
+        newCard.SetupCard();
+        newCard.MoveToPoint(placePoint.transform.position, placePoint.transform.rotation);
+
+        placePoint.activeCard = newCard;
+        newCard.assignedPlace = placePoint;
+
+        cardsInHand.Remove(cardSO);
+
+        BattleController.instance.SpendEnemyMana(cardSO.manaCost);
+    }
+
+    CardScriptableObject SelectedCardToPlay()
+    {
+        CardScriptableObject cardToPlay = null;
+
+        List<CardScriptableObject> cardsToPlay = new List<CardScriptableObject>();
+        foreach (CardScriptableObject card in cardsInHand)
+        {
+            if (card.manaCost <= BattleController.instance.enemyMana)
+                cardsToPlay.Add(card);
+        }
+        
+        if (cardsToPlay.Count > 0)
+        {
+            int selected = Random.Range(0, cardsToPlay.Count);
+
+            cardToPlay = cardsToPlay[selected];
+        }
+
+
+        return cardToPlay;
     }
 }

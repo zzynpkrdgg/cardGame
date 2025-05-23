@@ -28,7 +28,7 @@ public class BattleController : MonoBehaviour
     {
         SetupQueue();
         currentPlayerMaxMana = startingMana;
-        currentEnemyMaxMana = startingMana;
+        currentEnemyMaxMana = 0;
         FillPlayerMana();
         FillEnemyMana();
         SetupHealthBars();
@@ -136,7 +136,7 @@ public class BattleController : MonoBehaviour
 
     public void SpendEnemyMana(int amountToSpend)
     {
-        enemyMana = amountToSpend;
+        enemyMana -= amountToSpend;
 
         if (enemyMana < 0)
             enemyMana = 0;
