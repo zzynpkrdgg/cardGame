@@ -6,12 +6,12 @@ public class BattleController : MonoBehaviour
 
     public int startingMana = 1;
     public int maxMana = 10;
-    public int playerMana;
+    public int playerMana, enemyMana;
     public int startingCardsAmount = 5;
     public int playerHealth;
     public int enemyHealth;
 
-    private int currentPlayerMaxMana;
+    private int currentPlayerMaxMana, currentEnemyMaxMana;
 
     public enum TurnOrder {playerActive, playerCardAttacks, enemyActive, enemyCardAttacks}
     public MyQueue<TurnOrder> turnQueue = new MyQueue<TurnOrder>();
@@ -28,7 +28,9 @@ public class BattleController : MonoBehaviour
     {
         SetupQueue();
         currentPlayerMaxMana = startingMana;
+        currentEnemyMaxMana = 0;
         FillPlayerMana();
+        FillEnemyMana();
         SetupHealthBars();
 
         DeckController.Instance.DrawMultipleCards(startingCardsAmount);
@@ -72,6 +74,13 @@ public class BattleController : MonoBehaviour
         UIController.instance.SetManaText(playerMana);
     }
 
+    public void FillEnemyMana()
+    {
+        enemyMana = currentEnemyMaxMana;
+        UIController.instance.SetEnemyManaText(enemyMana);
+    }
+
+
     private void HandlePhase(TurnOrder phase)
     {
         switch (phase)
@@ -93,6 +102,10 @@ public class BattleController : MonoBehaviour
                 break;
 
             case TurnOrder.enemyActive:
+                if (currentEnemyMaxMana < maxMana)
+                    currentEnemyMaxMana++;
+
+                FillEnemyMana();
                 EnemyController.instance.StartAction();
                 break;
 
@@ -119,6 +132,16 @@ public class BattleController : MonoBehaviour
             playerMana = 0;
 
         UIController.instance.SetManaText(playerMana);
+    }
+
+    public void SpendEnemyMana(int amountToSpend)
+    {
+        enemyMana -= amountToSpend;
+
+        if (enemyMana < 0)
+            enemyMana = 0;
+
+        UIController.instance.SetEnemyManaText(enemyMana);
     }
 
     public void EndPlayerTurn()
