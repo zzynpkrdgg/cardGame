@@ -155,6 +155,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3980a8fa0fae98d4abc1cfb0dd949075, type: 2}
   - {fileID: 11400000, guid: e696717ee394f31448a639b22ae3c038, type: 2}
   - {fileID: 11400000, guid: 5b6645615004aae46b67012f24bcc19a, type: 2}
+  - {fileID: 11400000, guid: 04731082381622a4291d36cb67a61170, type: 2}
+  - {fileID: 11400000, guid: 8147309c502018b4489f33c35237aba4, type: 2}
+  - {fileID: 11400000, guid: 6b36b66f752a25b4b8b5dc5a96b7c544, type: 2}
+  - {fileID: 11400000, guid: a3342db4b1e9a924e86ba5e0310702a1, type: 2}
+  - {fileID: 11400000, guid: d2bf4d5d9c193d74c9832427df33c946, type: 2}
   cardToSpawn: {fileID: 324638842616194132, guid: 0c3b06d716c44c347a4683a35297d790, type: 3}
   cardSpawnPoint: {fileID: 467537674}
   enemyAIType: 1
@@ -1858,6 +1863,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cf9f1386e019e5c4cb60a7d8c2bed5c3, type: 2}
   - {fileID: 11400000, guid: e696717ee394f31448a639b22ae3c038, type: 2}
   - {fileID: 11400000, guid: 5b6645615004aae46b67012f24bcc19a, type: 2}
+  - {fileID: 11400000, guid: 04731082381622a4291d36cb67a61170, type: 2}
+  - {fileID: 11400000, guid: 8147309c502018b4489f33c35237aba4, type: 2}
+  - {fileID: 11400000, guid: 6b36b66f752a25b4b8b5dc5a96b7c544, type: 2}
+  - {fileID: 11400000, guid: a3342db4b1e9a924e86ba5e0310702a1, type: 2}
+  - {fileID: 11400000, guid: d2bf4d5d9c193d74c9832427df33c946, type: 2}
   waitForDrawing: 0.25
   cardToSpawn: {fileID: 3028268254949457534, guid: d98f726924b83ef46b27e6b5834e9d47, type: 3}
 --- !u!4 &804185222
@@ -5334,10 +5344,10 @@ SceneRoots:
   - {fileID: 964803255}
   - {fileID: 2075981144}
   - {fileID: 1945419114}
-  - {fileID: 804185222}
   - {fileID: 2036694593}
   - {fileID: 8909507784099265207}
   - {fileID: 1595815905}
   - {fileID: 1741159020}
   - {fileID: 1179198545}
+  - {fileID: 804185222}
   - {fileID: 14836386}

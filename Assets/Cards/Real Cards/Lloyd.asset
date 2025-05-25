@@ -15,8 +15,8 @@ MonoBehaviour:
   cardName: Lloyd
   actionDescription: I Gain All Remaining Mana As Power
   cardLore: The Legendary Green Ninja
-  currentHealth: 1
-  attackPower: 4
+  currentHealth: 4
+  attackPower: 1
   manaCost: 3
   character: {fileID: 21300000, guid: a06f6f3e76c058c4c8a485ca2e7a7d32, type: 3}
   cardsSkill: 10

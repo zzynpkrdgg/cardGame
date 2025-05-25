@@ -83,12 +83,7 @@ public class BattleController : MonoBehaviour
 
             currentPhase = turnQueue.Dequeue();
 
-            HandlePhase(currentPhase);
-
-            if (CardPointsController.instance.PlayerHasLloyd())
-                CardPointsController.instance.PlayerLloydSkill();
-            if (CardPointsController.instance.EnemyHasLloyd())
-                CardPointsController.instance.EnemyLloydSkill();
+            HandlePhase(currentPhase); 
         }
     }
 
@@ -121,7 +116,8 @@ public class BattleController : MonoBehaviour
                 break;
 
             case TurnOrder.playerCardAttacks:
-
+                if (CardPointsController.instance.PlayerHasLloyd())
+                    CardPointsController.instance.PlayerLloydSkill();
                 CardPointsController.instance.PlayerAttack();
                 break;
 
@@ -135,7 +131,8 @@ public class BattleController : MonoBehaviour
 
             case TurnOrder.enemyCardAttacks:
                 ResetTurnQueue();
-
+                if (CardPointsController.instance.EnemyHasLloyd())
+                    CardPointsController.instance.EnemyLloydSkill();
                 CardPointsController.instance.EnemyAttack();
                 break;
         }
