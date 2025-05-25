@@ -16,7 +16,7 @@ MonoBehaviour:
   actionDescription: 'Play: Deal 2 to all Enemies'
   cardLore: The Fire Ninja
   currentHealth: 4
-  attackPower: 6
+  attackPower: 5
   manaCost: 5
   character: {fileID: 21300000, guid: 35688395710a9b04f9a41bbc1b91c8ff, type: 3}
   cardsSkill: 9

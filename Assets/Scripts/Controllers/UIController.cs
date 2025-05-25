@@ -43,12 +43,12 @@ public class UIController : MonoBehaviour
 
     public void SetManaText(int manaAmount)
     {
-        playerManaText.text = "Mana: " + manaAmount;
+        playerManaText.text = manaAmount.ToString();
     }
 
     public void SetEnemyManaText(int manaAmount)
     {
-        enemyManaText.text = "Enemy Mana: " + manaAmount;
+        enemyManaText.text = manaAmount.ToString();
     }
 
     public void DrawCardButton()
