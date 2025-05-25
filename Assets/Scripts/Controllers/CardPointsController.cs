@@ -26,23 +26,98 @@ public class CardPointsController : MonoBehaviour
 
         for (int i = 0; i < playerCardPoints.Length; i++)
         {
-            if (playerCardPoints[i].activeCard != null)
+            var attacker = playerCardPoints[i].activeCard;
+
+            if (attacker != null)
             {
-                if (enemyCardPoints[i].activeCard != null)
+                if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.attackAllEnemies)
                 {
-                    enemyCardPoints[i].activeCard.DamageCard(playerCardPoints[i].activeCard.attackPower);
+                    if (i < enemyCardPoints.Length && enemyCardPoints[i].activeCard != null)
+                    {
+                        for (int j = 0; j < enemyCardPoints.Length; j++)
+                        {
+                            if (enemyCardPoints[j].activeCard != null)
+                            {
+                                enemyCardPoints[j].activeCard.DamageCard(attacker.attackPower);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        BattleController.instance.DamageEnemy(attacker.attackPower);
+                        for (int j = 0; j < enemyCardPoints.Length; j++)
+                        {
+                            if (enemyCardPoints[j].activeCard != null)
+                            {
+                                enemyCardPoints[j].activeCard.DamageCard(attacker.attackPower);
+                            }
+                        }
+                    }
                 }
+
+                else if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.babyDucks)
+                {
+                    if (i < enemyCardPoints.Length && enemyCardPoints[i].activeCard != null)
+                    {
+                        for (int j = 0; j < enemyCardPoints.Length; j++)
+                        {
+                            if (enemyCardPoints[j].activeCard != null)
+                            {
+                                enemyCardPoints[j].activeCard.DamageCard(5);
+                            }
+                        }
+                        BattleController.instance.DamageEnemy(5);
+                    }
+                    else
+                    {
+                        for (int j = 0; j < enemyCardPoints.Length; j++)
+                        {
+                            if (enemyCardPoints[j].activeCard != null)
+                            {
+                                enemyCardPoints[j].activeCard.DamageCard(5);
+                            }
+                        }
+                        BattleController.instance.DamageEnemy(5);
+                        BattleController.instance.DamageEnemy(attacker.attackPower);
+                    }
+                }
+
                 else
                 {
-                    BattleController.instance.DamageEnemy(playerCardPoints[i].activeCard.attackPower);
+                    if (i < enemyCardPoints.Length && enemyCardPoints[i].activeCard != null)
+                    {
+                        enemyCardPoints[i].activeCard.DamageCard(attacker.attackPower);
+                        LifeStealPlayer(attacker);
+                    }
+                    else
+                    {
+                        BattleController.instance.DamageEnemy(attacker.attackPower);
+                        LifeStealPlayer(attacker);
+                    }
                 }
-                playerCardPoints[i].activeCard.anim.SetTrigger("attack");
+                
+
+                if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.drawCardOnAttack)
+                    DeckController.Instance.DrawCardToHand();
+
+                if (attacker.anim != null)
+                    attacker.anim.SetTrigger("attack");
+
                 yield return new WaitForSeconds(waitBetweenAttacks);
             }
         }
-        CheckAssignedCards();
 
+        CheckAssignedCards();
         BattleController.instance.AdvanceTurn();
+    }
+
+    private static void LifeStealPlayer(Card attacker)
+    {
+        if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.lifeSteal)
+        {
+            BattleController.instance.playerHealth += 2;
+            UIController.instance.UpdatePlayerHealth();
+        }
     }
 
     public void EnemyAttack()
@@ -56,23 +131,95 @@ public class CardPointsController : MonoBehaviour
 
         for (int i = 0; i < enemyCardPoints.Length; i++)
         {
-            if (enemyCardPoints[i].activeCard != null)
+            var attacker = enemyCardPoints[i].activeCard;
+
+            if (attacker != null)
             {
-                if (playerCardPoints[i].activeCard != null)
+                if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.attackAllEnemies)
                 {
-                    playerCardPoints[i].activeCard.DamageCard(enemyCardPoints[i].activeCard.attackPower);
+                    if (i < playerCardPoints.Length && playerCardPoints[i].activeCard != null)
+                    {
+                        for (int j = 0; j < playerCardPoints.Length; j++)
+                        {
+                            if (playerCardPoints[j].activeCard != null)
+                            {
+                                playerCardPoints[j].activeCard.DamageCard(attacker.attackPower);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        BattleController.instance.DamagePlayer(attacker.attackPower);
+                        for (int j = 0; j < playerCardPoints.Length; j++)
+                        {
+                            if (playerCardPoints[j].activeCard != null)
+                            {
+                                playerCardPoints[j].activeCard.DamageCard(attacker.attackPower);
+                            }
+                        }
+                    }
+                }
+                else if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.babyDucks)
+                {
+                    if (i < playerCardPoints.Length && playerCardPoints[i].activeCard != null)
+                    {
+                        for (int j = 0; j < playerCardPoints.Length; j++)
+                        {
+                            if (playerCardPoints[j].activeCard != null)
+                            {
+                                playerCardPoints[j].activeCard.DamageCard(5);
+                            }
+                        }
+                        BattleController.instance.DamagePlayer(5);
+                    }
+                    else
+                    {
+                        for (int j = 0; j < playerCardPoints.Length; j++)
+                        {
+                            if (playerCardPoints[j].activeCard != null)
+                            {
+                                playerCardPoints[j].activeCard.DamageCard(5);
+                            }
+                        }
+                        BattleController.instance.DamagePlayer(5);
+                        BattleController.instance.DamagePlayer(attacker.attackPower);
+                    }
                 }
                 else
                 {
-                    BattleController.instance.DamagePlayer(enemyCardPoints[i].activeCard.attackPower);
+                    if (i < playerCardPoints.Length && playerCardPoints[i].activeCard != null)
+                    {
+                        playerCardPoints[i].activeCard.DamageCard(attacker.attackPower);
+                        LifeStealEnemy(attacker);
+                    }
+                    else
+                    {
+                        BattleController.instance.DamagePlayer(attacker.attackPower);
+                        LifeStealEnemy(attacker);
+                    }
                 }
-                enemyCardPoints[i].activeCard.anim.SetTrigger("attack");
+
+                if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.drawCardOnAttack)
+                    DeckController.Instance.DrawCardToHand();
+
+                if (attacker.anim != null)
+                    attacker.anim.SetTrigger("attack");
+
                 yield return new WaitForSeconds(waitBetweenAttacks);
             }
         }
-        CheckAssignedCards();
 
+        CheckAssignedCards();
         BattleController.instance.AdvanceTurn();
+    }
+
+    private static void LifeStealEnemy(Card attacker)
+    {
+        if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.lifeSteal)
+        {
+            BattleController.instance.enemyHealth += 2;
+            UIController.instance.UpdateEnemyHealth();
+        }
     }
 
     public void CheckAssignedCards()

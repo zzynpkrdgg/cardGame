@@ -123,6 +123,8 @@ public class Card : MonoBehaviour
                     theHC.RemoveCardFromHand(this);
 
                     BattleController.instance.SpendPlayerMana(manaCost);
+
+                    ActivateCardEffect();
                 }
                 else
                 {
@@ -185,6 +187,13 @@ public class Card : MonoBehaviour
     {
         currentHealth -= damageAmount;
 
+        if (cardSO.cardsSkill == CardScriptableObject.cardSkills.allenTheAlien)
+        {
+            attackPower += 4;
+            currentHealth += 2;
+            anim.SetTrigger("jump");
+        }
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;
@@ -204,5 +213,46 @@ public class Card : MonoBehaviour
         healthText.text = currentHealth.ToString();
         attackText.text = attackPower.ToString();
         manaText.text = manaCost.ToString();
+    }
+
+    public void ActivateCardEffect()
+    {
+        switch (cardSO.cardsSkill)
+        {
+            case CardScriptableObject.cardSkills.drawCardOnPlay:
+                DeckController.Instance.DrawCardToHand();
+                break;
+
+            case CardScriptableObject.cardSkills.buffAllies:
+                BuffAllies();
+                break;
+
+            case CardScriptableObject.cardSkills.none:
+            default:
+                break;
+
+        }
+    }
+
+    private void BuffAllies()
+    {
+        bool isPlayerSide = assignedPlace.isPlayerPoint;
+
+        CardPlacePoint[] allies;
+
+        if (isPlayerSide)
+            allies = CardPointsController.instance.playerCardPoints;
+        else
+            allies = CardPointsController.instance.enemyCardPoints;
+
+        foreach (var allyPoint in allies)
+        {
+            if (allyPoint.activeCard != null)
+            {
+                allyPoint.activeCard.attackPower += 1;
+                allyPoint.activeCard.currentHealth += 1;
+                allyPoint.activeCard.UpdateCardDisplay();
+            }
+        }
     }
 }

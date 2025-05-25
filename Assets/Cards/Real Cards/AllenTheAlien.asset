@@ -21,3 +21,4 @@ MonoBehaviour:
   attackPower: 2
   manaCost: 7
   character: {fileID: 21300000, guid: a01d72f0379901342a97d6e9c59861ca, type: 3}
+  cardsSkill: 4

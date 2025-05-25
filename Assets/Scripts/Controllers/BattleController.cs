@@ -177,7 +177,7 @@ public class BattleController : MonoBehaviour
 
             if (playerHealth <= 0)
             {
-                //End Battle
+                EndBattle();
             }
             SetupHealthBars();
             DamageIndicatorPlayer(damageAmount);
