@@ -168,7 +168,7 @@ public class BattleController : MonoBehaviour
         UIController.instance.endTurnButton.SetActive(false);
         UIController.instance.drawButton.SetActive(false);
     }
-
+    
     public void DamagePlayer(int damageAmount)
     {
         if (playerHealth > 0 || battleEnded == false)
