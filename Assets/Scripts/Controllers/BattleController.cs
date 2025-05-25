@@ -15,14 +15,19 @@ public class BattleController : MonoBehaviour
     [Header("Battle Setup")]
     public int startingCardsAmount = 5;
     public int playerHealth;
-    public int enemyHealth;
+    
     public bool battleEnded;
+    public SmoothBar enemyHealthBar;
+    [SerializeField] private int enemyMaxHealth = 50;
+    public int enemyHealth;
 
     [Header("Details")]
     public float resultScreenTimer;
     public enum TurnOrder {playerActive, playerCardAttacks, enemyActive, enemyCardAttacks}
     public MyQueue<TurnOrder> turnQueue = new MyQueue<TurnOrder>();
     public TurnOrder currentPhase;
+
+    
 
     public Transform discardPoint;
 
@@ -35,17 +40,18 @@ public class BattleController : MonoBehaviour
 
     private void Start()
     {
-        SetupQueue();
+        SetupQueue(); 
+        InitEnemyHealth();
         currentPlayerMaxMana = startingMana;
         currentEnemyMaxMana = 0;
         FillPlayerMana();
         FillEnemyMana();
-        SetupHealthBars();
-
+        SetupHealthText();
+       
         DeckController.Instance.DrawMultipleCards(startingCardsAmount);
     }
 
-    private static void SetupHealthBars()
+    private static void SetupHealthText()
     {
         UIController.instance.UpdatePlayerHealth();
         UIController.instance.UpdateEnemyHealth();
@@ -185,9 +191,14 @@ public class BattleController : MonoBehaviour
             {
                 EndBattle();
             }
-            SetupHealthBars();
+            SetupHealthText();
             DamageIndicatorPlayer(damageAmount);
         }
+    }
+    public void InitEnemyHealth()
+    {
+        enemyHealth = enemyMaxHealth;
+        enemyHealthBar.SetValue(enemyHealth, enemyMaxHealth);
     }
 
     public void DamageEnemy(int damageAmount)
@@ -195,11 +206,13 @@ public class BattleController : MonoBehaviour
         if (enemyHealth > 0 || battleEnded == false)
         {
             enemyHealth -= damageAmount;
+            enemyHealth = Mathf.Clamp(enemyHealth, 0, enemyMaxHealth);
+            enemyHealthBar.SetValue(enemyHealth, enemyMaxHealth);
             if (enemyHealth <= 0)
             {
                 EndBattle();
             }
-            SetupHealthBars();
+            SetupHealthText();
             DamageIndicatorEnemy(damageAmount);
         }
     }

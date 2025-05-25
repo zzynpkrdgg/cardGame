@@ -255,6 +255,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 61950152}
   m_CullTransparentMesh: 1
+--- !u!1 &104394404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 104394405}
+  - component: {fileID: 104394407}
+  - component: {fileID: 104394406}
+  m_Layer: 5
+  m_Name: EnemyEmptyBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &104394405
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104394404}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1346768820}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 773, y: 353.5}
+  m_SizeDelta: {x: 339.26, y: 130.6278}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &104394406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104394404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: ba7672e9c659edc42ac6dab47b685181, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 0
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &104394407
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104394404}
+  m_CullTransparentMesh: 1
 --- !u!1 &113395782
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,7 +1235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 24.995, y: -830.46}
+  m_AnchoredPosition: {x: 24.995117, y: -830.46}
   m_SizeDelta: {x: 221.7693, y: 59.0704}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &404694925
@@ -1274,7 +1349,7 @@ GameObject:
   - component: {fileID: 406439840}
   - component: {fileID: 406439839}
   m_Layer: 5
-  m_Name: Image
+  m_Name: PlayerBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2084,8 +2159,9 @@ GameObject:
   - component: {fileID: 842393735}
   - component: {fileID: 842393737}
   - component: {fileID: 842393736}
+  - component: {fileID: 842393738}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: EnemyBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2148,6 +2224,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 842393734}
   m_CullTransparentMesh: 1
+--- !u!114 &842393738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842393734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d541a53991dea34fa94fb6ea3d06cdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationSpeed: 2
+  targetFill: 1
 --- !u!1 &847784779
 GameObject:
   m_ObjectHideFlags: 0
@@ -2707,7 +2797,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -15}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 305.4552, y: -658.739}
+  m_AnchoredPosition: {x: 341, y: -814}
   m_SizeDelta: {x: 55.0121, y: 50.3668}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1082249936
@@ -3223,6 +3313,7 @@ RectTransform:
   - {fileID: 1082249935}
   - {fileID: 1974541563}
   - {fileID: 406439838}
+  - {fileID: 104394405}
   - {fileID: 842393735}
   - {fileID: 1572784834}
   - {fileID: 61950153}
@@ -4584,8 +4675,10 @@ MonoBehaviour:
   enemyMana: 0
   startingCardsAmount: 4
   playerHealth: 50
-  enemyHealth: 50
   battleEnded: 0
+  enemyHealthBar: {fileID: 842393738}
+  enemyMaxHealth: 50
+  enemyHealth: 50
   resultScreenTimer: 0
   currentPhase: 0
   discardPoint: {fileID: 1217090666}
@@ -4776,7 +4869,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 15}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 292.4193, y: -206.97717}
+  m_AnchoredPosition: {x: 1566, y: -255}
   m_SizeDelta: {x: 55.0121, y: 50.3668}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1974541564
