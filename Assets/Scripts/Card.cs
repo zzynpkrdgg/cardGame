@@ -220,7 +220,10 @@ public class Card : MonoBehaviour
         switch (cardSO.cardsSkill)
         {
             case CardScriptableObject.cardSkills.drawCardOnPlay:
-                DeckController.Instance.DrawCardToHand();
+                if (assignedPlace.isPlayerPoint == true)
+                    DeckController.Instance.DrawCardToHand();
+                else
+                    EnemyController.instance.EnemyDrawCard();
                 break;
 
             case CardScriptableObject.cardSkills.buffAllies:

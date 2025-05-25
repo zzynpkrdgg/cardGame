@@ -100,6 +100,9 @@ public class CardPointsController : MonoBehaviour
                 if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.drawCardOnAttack)
                     DeckController.Instance.DrawCardToHand();
 
+                if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.omniman)
+                    BattleController.instance.DamageEnemy(10);
+
                 if (attacker.anim != null)
                     attacker.anim.SetTrigger("attack");
 
@@ -200,7 +203,10 @@ public class CardPointsController : MonoBehaviour
                 }
 
                 if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.drawCardOnAttack)
-                    DeckController.Instance.DrawCardToHand();
+                    EnemyController.instance.EnemyDrawCard();
+
+                if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.omniman)
+                    BattleController.instance.DamagePlayer(10);
 
                 if (attacker.anim != null)
                     attacker.anim.SetTrigger("attack");

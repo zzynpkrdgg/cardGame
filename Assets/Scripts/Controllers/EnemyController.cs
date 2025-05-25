@@ -65,8 +65,7 @@ public class EnemyController : MonoBehaviour
 
         if (enemyAIType != AIType.placeFromDeck)
         {
-            cardsInHand.Add(activeCards[0]);
-            activeCards.RemoveAt(0);
+            EnemyDrawCard();
 
             if (activeCards.Count == 0)
                 SetupDeck();
@@ -226,6 +225,12 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(.7f);
 
         BattleController.instance.AdvanceTurn();
+    }
+
+    public void EnemyDrawCard()
+    {
+        cardsInHand.Add(activeCards[0]);
+        activeCards.RemoveAt(0);
     }
 
     private static void PlaceRandom(List<CardPlacePoint> cardPoints, ref int randomPoint, ref CardPlacePoint selectedPoint)
