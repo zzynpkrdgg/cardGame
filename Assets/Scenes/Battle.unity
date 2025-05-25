@@ -4082,7 +4082,7 @@ MonoBehaviour:
   playerHealth: 50
   enemyHealth: 50
   battleEnded: 0
-  resultScreenTimer: 0
+  resultScreenTimer: 2
   currentPhase: 0
   discardPoint: {fileID: 1217090666}
 --- !u!4 &1945419114
