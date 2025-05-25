@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -83,6 +84,11 @@ public class BattleController : MonoBehaviour
             currentPhase = turnQueue.Dequeue();
 
             HandlePhase(currentPhase);
+
+            if (CardPointsController.instance.PlayerHasLloyd())
+                CardPointsController.instance.PlayerLloydSkill();
+            if (CardPointsController.instance.EnemyHasLloyd())
+                CardPointsController.instance.EnemyLloydSkill();
         }
     }
 
@@ -129,10 +135,13 @@ public class BattleController : MonoBehaviour
 
             case TurnOrder.enemyCardAttacks:
                 ResetTurnQueue();
+
                 CardPointsController.instance.EnemyAttack();
                 break;
         }
     }
+
+
     private void ResetTurnQueue()
     {
         turnQueue = new MyQueue<TurnOrder>();

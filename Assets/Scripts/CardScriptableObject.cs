@@ -11,6 +11,6 @@ public class CardScriptableObject : ScriptableObject
 
     public int currentHealth, attackPower, manaCost;
     public Sprite character;
-    public enum cardSkills { none, drawCardOnPlay, attackAllEnemies, drawCardOnAttack, allenTheAlien, babyDucks, buffAllies, lifeSteal, omniman, kai}
+    public enum cardSkills { none, drawCardOnPlay, attackAllEnemies, drawCardOnAttack, allenTheAlien, babyDucks, buffAllies, lifeSteal, omniman, kai, lloyd}
     public cardSkills cardsSkill;
 }

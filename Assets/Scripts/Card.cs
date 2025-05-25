@@ -234,6 +234,13 @@ public class Card : MonoBehaviour
             default:
                 break;
 
+            case CardScriptableObject.cardSkills.kai:
+                if (assignedPlace.isPlayerPoint)
+                    CardPointsController.instance.PlayerKaiFlameEveryone();
+                else
+                    CardPointsController.instance.EnemyKaiFlameEveryone();
+                break;
+
         }
     }
 

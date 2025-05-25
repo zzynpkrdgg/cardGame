@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a21ddfa09e1d5524bbe8bdc55d866c73, type: 3}
-  m_Name: Kai
+  m_Name: Lloyd
   m_EditorClassIdentifier: 
-  cardName: Kai
-  actionDescription: 'Play: Deal 2 to all Enemies'
-  cardLore: The Fire Ninja
-  currentHealth: 4
-  attackPower: 6
-  manaCost: 5
-  character: {fileID: 21300000, guid: 35688395710a9b04f9a41bbc1b91c8ff, type: 3}
-  cardsSkill: 9
+  cardName: Lloyd
+  actionDescription: I Gain All Remaining Mana As Power
+  cardLore: The Legendary Green Ninja
+  currentHealth: 1
+  attackPower: 4
+  manaCost: 3
+  character: {fileID: 21300000, guid: a06f6f3e76c058c4c8a485ca2e7a7d32, type: 3}
+  cardsSkill: 10
