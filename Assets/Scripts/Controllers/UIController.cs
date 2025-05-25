@@ -11,8 +11,10 @@ public class UIController : MonoBehaviour
     [SerializeField] private float manaWarnTimer = 1.5f;
     [SerializeField] private TMP_Text playerHealthText;
     [SerializeField] private TMP_Text enemyHealthText;
+    public GameObject endScreen;
     public GameObject drawButton, endTurnButton;
     public UIDamageIndicator playerDamage, enemyDamage;
+    public TMP_Text resultText;
 
     private float counterManaWarning;
 
@@ -71,5 +73,15 @@ public class UIController : MonoBehaviour
     public void UpdateEnemyHealth()
     {
         enemyHealthText.text = "Enemy: " + BattleController.instance.enemyHealth;
+    }
+
+    public void MainMenu()
+    {
+
+    }
+
+    public void RestartLevel()
+    {
+
     }
 }

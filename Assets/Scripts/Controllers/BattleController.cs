@@ -1,23 +1,31 @@
+using System.Collections;
 using UnityEngine;
 
 public class BattleController : MonoBehaviour
 {
     public static BattleController instance;
 
+    [Header("Mana Setup")]
     public int startingMana = 1;
     public int maxMana = 10;
-    public int playerMana, enemyMana;
+    public int playerMana;
+    public int enemyMana;
+
+    [Header("Battle Setup")]
     public int startingCardsAmount = 5;
     public int playerHealth;
     public int enemyHealth;
+    public bool battleEnded;
 
-    private int currentPlayerMaxMana, currentEnemyMaxMana;
-
+    [Header("Details")]
+    public float resultScreenTimer;
     public enum TurnOrder {playerActive, playerCardAttacks, enemyActive, enemyCardAttacks}
     public MyQueue<TurnOrder> turnQueue = new MyQueue<TurnOrder>();
     public TurnOrder currentPhase;
 
     public Transform discardPoint;
+
+    private int currentPlayerMaxMana, currentEnemyMaxMana;
 
     private void Awake()
     {
@@ -55,17 +63,27 @@ public class BattleController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-            AdvanceTurn();
+        SetupAggression();
+    }
+
+    private void SetupAggression()
+    {
+        if (enemyHealth < 25 || currentEnemyMaxMana < 5)
+            EnemyController.instance.enemyAIType = EnemyController.AIType.handDefensive;
+        else if (enemyHealth >= 25 && currentEnemyMaxMana >= 5)
+            EnemyController.instance.enemyAIType = EnemyController.AIType.handAttacking;
     }
 
     public void AdvanceTurn()
     {
-        turnQueue.Enqueue(currentPhase);
+        if (battleEnded == false)
+        {
+            turnQueue.Enqueue(currentPhase);
 
-        currentPhase = turnQueue.Dequeue();
+            currentPhase = turnQueue.Dequeue();
 
-        HandlePhase(currentPhase);
+            HandlePhase(currentPhase);
+        }
     }
 
     public void FillPlayerMana()
@@ -153,7 +171,7 @@ public class BattleController : MonoBehaviour
 
     public void DamagePlayer(int damageAmount)
     {
-        if (playerHealth > 0)
+        if (playerHealth > 0 || battleEnded == false)
         {
             playerHealth -= damageAmount;
 
@@ -168,12 +186,12 @@ public class BattleController : MonoBehaviour
 
     public void DamageEnemy(int damageAmount)
     {
-        if (enemyHealth > 0)
+        if (enemyHealth > 0 || battleEnded == false)
         {
             enemyHealth -= damageAmount;
             if (enemyHealth <= 0)
             {
-                //end battle
+                EndBattle();
             }
             SetupHealthBars();
             DamageIndicatorEnemy(damageAmount);
@@ -192,5 +210,24 @@ public class BattleController : MonoBehaviour
         UIDamageIndicator damageClone = Instantiate(UIController.instance.playerDamage, UIController.instance.playerDamage.transform.parent);
         damageClone.damageText.text = damageAmount.ToString();
         damageClone.gameObject.SetActive(true);
+    }
+
+    private void EndBattle()
+    {
+        battleEnded = true;
+
+        if (enemyHealth <= 0)
+            UIController.instance.resultText.text = "YOU WON!";
+        else
+            UIController.instance.resultText.text = "YOU LOST";
+
+        StartCoroutine(ShowResultCo());
+    }
+
+    IEnumerator ShowResultCo()
+    {
+        yield return new WaitForSeconds(resultScreenTimer);
+
+        UIController.instance.endScreen.SetActive(true);
     }
 }

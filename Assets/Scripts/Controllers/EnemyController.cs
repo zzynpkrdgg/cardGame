@@ -31,6 +31,7 @@ public class EnemyController : MonoBehaviour
             SetupHand();
     }
 
+
     public void SetupDeck()
     {
         activeCards.Clear();
@@ -83,6 +84,9 @@ public class EnemyController : MonoBehaviour
         CardScriptableObject selectedCard = null;
         int iterations = 0;
 
+        List<CardPlacePoint> prefferedPoints = new List<CardPlacePoint>();
+        List<CardPlacePoint> secondaryPoints = new List<CardPlacePoint>();
+
         switch (enemyAIType)
         {
 
@@ -116,9 +120,106 @@ public class EnemyController : MonoBehaviour
                 break;
 
             case AIType.handDefensive:
-                break;
+
+                /*if (BattleController.instance.enemyHealth > BattleController.instance.enemyHealth/2)
+                {
+                    enemyAIType = AIType.handAttacking;
+                    break;
+                }*/
+
+                selectedCard = SelectedCardToPlay();
+                prefferedPoints.Clear();
+                secondaryPoints.Clear();
+
+                for (int i = 0; i < cardPoints.Count; i++)
+                {
+                    if (cardPoints[i].activeCard == null)
+                    {
+                        if (CardPointsController.instance.playerCardPoints[i].activeCard != null)
+                            prefferedPoints.Add(cardPoints[i]);
+                        else
+                            secondaryPoints.Add(cardPoints[i]);
+                    }
+                }
+
+                iterations = 50;
+                while (selectedCard != null && iterations > 0 && prefferedPoints.Count + secondaryPoints.Count > 0)
+                {
+                    if (prefferedPoints.Count > 0)
+                    {
+                        int selectPoint = Random.Range(0, prefferedPoints.Count);
+                        selectedPoint = prefferedPoints[selectPoint];
+
+                        prefferedPoints.RemoveAt(selectPoint);
+                    }
+                    else
+                    {
+                        int selectPoint = Random.Range(0, secondaryPoints.Count);
+                        selectedPoint = secondaryPoints[selectPoint];
+
+                        secondaryPoints.RemoveAt(selectPoint);
+                    }
+
+                    PlayCard(selectedCard, selectedPoint);
+
+                    //Check if we should play another
+                    selectedCard = SelectedCardToPlay();
+
+                    iterations--;
+
+                    yield return new WaitForSeconds(CardPointsController.instance.waitBetweenAttacks);
+                }
+               
+
+                    break;
 
             case AIType.handAttacking:
+
+                selectedCard = SelectedCardToPlay();
+
+                prefferedPoints.Clear();
+                secondaryPoints.Clear();
+
+                for (int i = 0; i < cardPoints.Count; i++)
+                {
+                    if (cardPoints[i].activeCard == null)
+                    {
+                        if (CardPointsController.instance.playerCardPoints[i].activeCard == null)
+                            prefferedPoints.Add(cardPoints[i]);
+                        else
+                            secondaryPoints.Add(cardPoints[i]);
+                    }
+                }
+
+                iterations = 50;
+                while (selectedCard != null && iterations > 0 && prefferedPoints.Count + secondaryPoints.Count > 0)
+                {
+                    if (prefferedPoints.Count > 0)
+                    {
+                        int selectPoint = Random.Range(0, prefferedPoints.Count);
+                        selectedPoint = prefferedPoints[selectPoint];
+
+                        prefferedPoints.RemoveAt(selectPoint);
+                    }
+                    else
+                    {
+                        int selectPoint = Random.Range(0, secondaryPoints.Count);
+                        selectedPoint = secondaryPoints[selectPoint];
+
+                        secondaryPoints.RemoveAt(selectPoint);
+                    }
+
+                    PlayCard(selectedCard, selectedPoint);
+
+                    //Check if we should play another
+                    selectedCard = SelectedCardToPlay();
+
+                    iterations--;
+
+                    yield return new WaitForSeconds(CardPointsController.instance.waitBetweenAttacks);
+                }
+
+
                 break;
         }
 
