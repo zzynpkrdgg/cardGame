@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class UIController : MonoBehaviour
     public GameObject drawButton, endTurnButton;
     public UIDamageIndicator playerDamage, enemyDamage;
     public TMP_Text resultText;
+    public Image resultImage;
 
     private float counterManaWarning;
 
