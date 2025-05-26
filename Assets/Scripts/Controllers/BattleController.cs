@@ -128,6 +128,10 @@ public class BattleController : MonoBehaviour
             case TurnOrder.playerCardAttacks:
                 if (CardPointsController.instance.PlayerHasLloyd())
                     CardPointsController.instance.PlayerLloydSkill();
+
+                if(CardPointsController.instance.PlayerHasAnais())
+                    CardPointsController.instance.PlayerAnais(1);
+
                 CardPointsController.instance.PlayerAttack();
                 break;
 
@@ -143,6 +147,9 @@ public class BattleController : MonoBehaviour
                 ResetTurnQueue();
                 if (CardPointsController.instance.EnemyHasLloyd())
                     CardPointsController.instance.EnemyLloydSkill();
+
+                if(CardPointsController.instance.EnemyHasAnais())
+                    CardPointsController.instance.EnemyAnais(1);
                 
                 CardPointsController.instance.EnemyAttack();
                 break;

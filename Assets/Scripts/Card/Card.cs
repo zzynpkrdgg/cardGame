@@ -69,6 +69,9 @@ public class Card : MonoBehaviour
     {
         HandleMove();
         PickCards();
+
+        if (attackPower < 0)
+            attackPower = 0;
     }
 
     public void SetupCard()
@@ -211,6 +214,9 @@ public class Card : MonoBehaviour
                 return;
             }
 
+            if (cardSO.cardsSkill == CardScriptableObject.cardSkills.drawCardOnDeath)
+                DeckController.Instance.DrawCardToHand();
+
             currentHealth = 0;
             assignedPlace.activeCard = null;
             MoveToPoint(BattleController.instance.discardPoint.position, BattleController.instance.discardPoint.rotation);
@@ -272,6 +278,18 @@ public class Card : MonoBehaviour
                     CardPointsController.instance.PlayerSpidermanSkill();
                 else
                     CardPointsController.instance.EnemySpidermanSkill();
+                break;
+
+            case CardScriptableObject.cardSkills.naruto:
+                if (assignedPlace.isPlayerPoint)
+                    CardPointsController.instance.PlayerNaruto();
+                else
+                    CardPointsController.instance.EnemyNaruto();
+                break;
+
+            case CardScriptableObject.cardSkills.idaho:
+                if(assignedPlace.isPlayerPoint)
+                    CardPointsController.instance.IdahoSkill();
                 break;
 
             case CardScriptableObject.cardSkills.none:

@@ -293,8 +293,6 @@ public class CardPointsController : MonoBehaviour
                     playerCardPoints[i].activeCard.attackPower += BattleController.instance.playerMana;
                     playerCardPoints[i].activeCard.anim.SetTrigger("jump");
                 }
-                else
-                    Debug.Log("No Lloyd Here");
             }
         }
         if (card != null)
@@ -481,6 +479,125 @@ public class CardPointsController : MonoBehaviour
             if (highestPowerPlayer.attackPower < 0)
                 highestPowerPlayer.attackPower = 0;
             highestPowerPlayer.UpdateCardDisplay();
+        }
+    }
+
+    public void PlayerAnais(int healAmount)
+    {
+        for (int i = 0; i < playerCardPoints.Length; i++)
+        {
+            Card playerCard = playerCardPoints[i].activeCard;
+
+            if (playerCard != null)
+            {
+                playerCard.currentHealth += healAmount;
+            }
+        }
+    }
+
+    public void EnemyAnais(int healAmount)
+    {
+        for (int i = 0; i < enemyCardPoints.Length; i++)
+        {
+            Card enemyCard = enemyCardPoints[i].activeCard;
+
+            if (enemyCard != null)
+            {
+                enemyCard.currentHealth += healAmount;
+            }
+        }
+    }
+
+    public bool EnemyHasAnais()
+    {
+        bool isAnais = false;
+        for (int i = 0; i < enemyCardPoints.Length; i++)
+        {
+            if (enemyCardPoints[i].activeCard != null)
+            {
+                if (enemyCardPoints[i].activeCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.anais)
+                {
+                    isAnais = true;
+                }
+            }
+        }
+        return isAnais;
+    }
+
+    public bool PlayerHasAnais()
+    {
+        bool isAnais = false;
+        for (int i = 0; i < playerCardPoints.Length; i++)
+        {
+            if (playerCardPoints[i].activeCard != null)
+            {
+                if (playerCardPoints[i].activeCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.anais)
+                {
+                    isAnais = true;
+                }
+            }
+        }
+        return isAnais;
+    }
+
+    public void PlayerNaruto()
+    {
+        for (int i = 0; i < playerCardPoints.Length; i++)
+        {
+            Card playerCard = playerCardPoints[i].activeCard;
+
+            if (playerCard != null && playerCard.cardSO.cardsSkill != CardScriptableObject.cardSkills.naruto)
+            {
+                playerCard.DamageCard(500);
+            }
+        }
+        for (int i = 0; i < enemyCardPoints.Length; i++)
+        {
+            Card enemyCard = enemyCardPoints[i].activeCard;
+
+            if (enemyCard != null)
+            {
+                enemyCard.DamageCard(500);
+            }
+        }
+    }
+
+    public void EnemyNaruto()
+    {
+        for (int i = 0; i < enemyCardPoints.Length; i++)
+        {
+            Card enemyCard = enemyCardPoints[i].activeCard;
+
+            if (enemyCard != null && enemyCard.cardSO.cardsSkill != CardScriptableObject.cardSkills.naruto)
+            {
+                enemyCard.DamageCard(500);
+            }
+        }
+        for (int i = 0; i < playerCardPoints.Length; i++)
+        {
+            Card playerCard = playerCardPoints[i].activeCard;
+
+            if (playerCard != null)
+            {
+                playerCard.DamageCard(500);
+            }
+        }
+    }
+
+    public void IdahoSkill()
+    {
+        for (int i = 0; i < playerCardPoints.Length; i++)
+        {
+            if (playerCardPoints[i].activeCard != null &&
+                playerCardPoints[i].activeCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.idaho)
+            {
+                if (i < enemyCardPoints.Length && enemyCardPoints[i].activeCard != null)
+                {
+                    enemyCardPoints[i].activeCard.attackPower -= 1;
+                    playerCardPoints[i].activeCard.DamageCard(1);
+                    enemyCardPoints[i].activeCard.UpdateCardDisplay();
+                }
+            }
         }
     }
 }
