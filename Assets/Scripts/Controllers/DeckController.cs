@@ -12,6 +12,7 @@ public class DeckController : MonoBehaviour
     public List<CardScriptableObject> deckToUse = new List<CardScriptableObject>();
     [SerializeField] private MyStack<CardScriptableObject> activeCards= new MyStack<CardScriptableObject>();
     [SerializeField] private float waitForDrawing = .25f;
+    public CardScriptableObject bmoCard;
 
     public Card cardToSpawn;
 
@@ -24,6 +25,7 @@ public class DeckController : MonoBehaviour
     {
         SetUpDeck();
     }
+
 
     public void SetUpDeck()
     {
@@ -59,7 +61,14 @@ public class DeckController : MonoBehaviour
         }
         else
             Debug.Log("Max Hand");
+    }
 
+    public void DrawBMOToHand()
+    {
+        Card newCard = Instantiate(cardToSpawn, transform.position, transform.rotation);
+        newCard.cardSO = bmoCard;
+        newCard.SetupCard();
+        HandController.instance.AddBMOToHand(newCard);
     }
 
     public void Shuffle(List<CardScriptableObject> list) 

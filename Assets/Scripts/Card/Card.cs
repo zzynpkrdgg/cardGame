@@ -292,6 +292,15 @@ public class Card : MonoBehaviour
                     CardPointsController.instance.IdahoSkill();
                 break;
 
+            case CardScriptableObject.cardSkills.finn:
+                if (assignedPlace.isPlayerPoint)
+                    DeckController.Instance.DrawBMOToHand();
+                break;
+
+            case CardScriptableObject.cardSkills.healYourself:
+                HealYourself(cardSO.buffValue);
+                break;
+
             case CardScriptableObject.cardSkills.none:
                 default:
                 break;
@@ -316,6 +325,36 @@ public class Card : MonoBehaviour
                 allyPoint.activeCard.attackPower += buffVal;
                 allyPoint.activeCard.currentHealth += buffVal;
                 allyPoint.activeCard.UpdateCardDisplay();
+            }
+        }
+    }
+
+    public void HealYourself(int healVal)
+    {
+        bool isPlayerSide = assignedPlace.isPlayerPoint;
+
+        CardPlacePoint[] allies;
+
+        if (isPlayerSide)
+            allies = CardPointsController.instance.playerCardPoints;
+        else
+            allies = CardPointsController.instance.enemyCardPoints;
+
+        foreach (var allyPoint in allies)
+        {
+            if (allyPoint.activeCard != null && isPlayerSide)
+            {
+                BattleController.instance.playerHealth += healVal;
+                if (BattleController.instance.playerHealth > 50)
+                    BattleController.instance.playerHealth = 50;
+                UIController.instance.UpdatePlayerHealth();
+            }
+            if (allyPoint.activeCard != null && isPlayerSide == false)
+            {
+                BattleController.instance.enemyHealth += healVal;
+                if (BattleController.instance.playerHealth > 50)
+                    BattleController.instance.playerHealth = 50;
+                UIController.instance.UpdateEnemyHealth();
             }
         }
     }

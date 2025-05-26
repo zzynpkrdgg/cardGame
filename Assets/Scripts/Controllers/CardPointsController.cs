@@ -123,7 +123,9 @@ public class CardPointsController : MonoBehaviour
     {
         if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.lifeSteal)
         {
-            BattleController.instance.playerHealth += 2;
+            BattleController.instance.playerHealth += attacker.attackPower;
+            if (BattleController.instance.playerHealth > 50)
+                BattleController.instance.playerHealth = 50;
             UIController.instance.UpdatePlayerHealth();
         }
     }
@@ -228,7 +230,9 @@ public class CardPointsController : MonoBehaviour
     {
         if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.lifeSteal)
         {
-            BattleController.instance.enemyHealth += 2;
+            BattleController.instance.enemyHealth += attacker.attackPower;
+            if (BattleController.instance.enemyHealth > 50)
+                BattleController.instance.enemyHealth = 50;
             UIController.instance.UpdateEnemyHealth();
         }
     }
@@ -491,6 +495,7 @@ public class CardPointsController : MonoBehaviour
             if (playerCard != null)
             {
                 playerCard.currentHealth += healAmount;
+                playerCard.UpdateCardDisplay();
             }
         }
     }
@@ -504,6 +509,7 @@ public class CardPointsController : MonoBehaviour
             if (enemyCard != null)
             {
                 enemyCard.currentHealth += healAmount;
+                enemyCard.UpdateCardDisplay();
             }
         }
     }
@@ -600,4 +606,41 @@ public class CardPointsController : MonoBehaviour
             }
         }
     }
+
+    public void PlayerBMO()
+    {
+        for (int i = 0; i < playerCardPoints.Length; i++)
+        {
+            Card playerCard = playerCardPoints[i].activeCard;
+
+            if (playerCard != null && playerCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.finn)
+            {
+                playerCard.attackPower += 4;
+                playerCard.UpdateCardDisplay();
+            }
+
+            if (playerCard != null && playerCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.bmo)
+            {
+                playerCard.attackPower += 1;
+                playerCard.UpdateCardDisplay();
+            }
+        }
+    }
+
+    public bool PlayerHasBmo()
+    {
+        bool isBmo = false;
+        for (int i = 0; i < playerCardPoints.Length; i++)
+        {
+            if (playerCardPoints[i].activeCard != null)
+            {
+                if (playerCardPoints[i].activeCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.bmo)
+                {
+                    isBmo = true;
+                }
+            }
+        }
+        return isBmo;
+    }
+
 }

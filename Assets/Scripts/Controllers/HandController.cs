@@ -72,4 +72,10 @@ public class HandController : MonoBehaviour
         heldCard.Add(cardToAdd);
         SetCardPositionsInHand();
     }
+
+    public void AddBMOToHand(Card bmoCard)
+    {
+        heldCard.Add(bmoCard);
+        SetCardPositionsInHand();
+    }
 }

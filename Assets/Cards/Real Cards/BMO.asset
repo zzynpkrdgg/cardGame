@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a21ddfa09e1d5524bbe8bdc55d866c73, type: 3}
-  m_Name: Marceline
+  m_Name: BMO
   m_EditorClassIdentifier: 
-  cardName: Marceline
-  actionDescription: Lifesteal
+  cardName: BMO
+  actionDescription: 'Turn End: Give +4 | 0 To Finn And +1 | 0 To Me'
   cardLore: 
-  currentHealth: 5
-  attackPower: 3
-  manaCost: 4
-  character: {fileID: 21300000, guid: 7b6e04e159bf633459246b789dbe2a16, type: 3}
-  cardsSkill: 7
+  currentHealth: 6
+  attackPower: 0
+  manaCost: 2
+  character: {fileID: 21300000, guid: 36414fb05dd7dd04486c3a0cf4d60e06, type: 3}
+  cardsSkill: 20
   buffValue: 0

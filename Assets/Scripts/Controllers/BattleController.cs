@@ -95,6 +95,8 @@ public class BattleController : MonoBehaviour
 
             HandlePhase(currentPhase); 
         }
+
+        
     }
 
     public void FillPlayerMana()
@@ -131,6 +133,9 @@ public class BattleController : MonoBehaviour
 
                 if(CardPointsController.instance.PlayerHasAnais())
                     CardPointsController.instance.PlayerAnais(1);
+
+                if (CardPointsController.instance.PlayerHasBmo())
+                    CardPointsController.instance.PlayerBMO();
 
                 CardPointsController.instance.PlayerAttack();
                 break;
