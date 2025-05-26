@@ -1,6 +1,9 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System.Collections;
 
 public class UIController : MonoBehaviour
 {
@@ -15,11 +18,15 @@ public class UIController : MonoBehaviour
     public GameObject endScreen;
     public GameObject drawButton, endTurnButton;
     public UIDamageIndicator playerDamage, enemyDamage;
-    public TMP_Text resultText;
-    public Image resultImage;
-
+    //public TMP_Text resultText;
+    //public Image resultImage;
+    public GameObject winPanel;
+    public GameObject losePanel;
+    public string selectedMainMenu;
+    public string selectedBattleMenu;
     private float counterManaWarning;
 
+    public WinController WinController;
     private void Awake()
     {
         instance = this;
@@ -76,14 +83,26 @@ public class UIController : MonoBehaviour
     {
         enemyHealthText.text = "Enemy: " + BattleController.instance.enemyHealth;
     }
-
+    public void showWinPanel()
+    {
+        winPanel.SetActive(true);
+        // myKitty.Play("kittyy");
+        // StartCoroutine(MoveKittyAndHide());
+        WinController.showKitty();
+    }
+   
+    public void showLosePanel()
+    {
+        losePanel.SetActive(true);
+    }
+    
     public void MainMenu()
     {
-
+        SceneManager.LoadScene(selectedMainMenu);
     }
 
     public void RestartLevel()
     {
-
+        SceneManager.LoadScene(selectedBattleMenu);
     }
 }

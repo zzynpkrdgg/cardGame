@@ -15,11 +15,14 @@ public class BattleController : MonoBehaviour
     [Header("Battle Setup")]
     public int startingCardsAmount = 5;
     public int playerHealth;
-    
+    public SmoothBar playerHealthBar;
+    [SerializeField] private int playerMaxHealth = 50;
+
     public bool battleEnded;
     public SmoothBar enemyHealthBar;
     [SerializeField] private int enemyMaxHealth = 50;
     public int enemyHealth;
+    
 
     [Header("Details")]
     public float resultScreenTimer;
@@ -42,6 +45,7 @@ public class BattleController : MonoBehaviour
     {
         SetupQueue(); 
         InitEnemyHealth();
+        InitPlayerHealth();
         currentPlayerMaxMana = startingMana;
         currentEnemyMaxMana = 0;
         FillPlayerMana();
@@ -180,13 +184,20 @@ public class BattleController : MonoBehaviour
         UIController.instance.endTurnButton.SetActive(false);
         UIController.instance.drawButton.SetActive(false);
     }
+    public void InitPlayerHealth()
+    {
+        playerHealth = playerMaxHealth;
+        playerHealthBar.SetValue(playerHealth, playerMaxHealth);
+        
+    }
     
     public void DamagePlayer(int damageAmount)
     {
         if (playerHealth > 0 || battleEnded == false)
         {
             playerHealth -= damageAmount;
-
+            playerHealth= Mathf.Clamp(playerHealth, 0, playerMaxHealth);
+            playerHealthBar.SetValue(playerHealth, playerMaxHealth);
             if (playerHealth <= 0)
             {
                 EndBattle();
@@ -200,6 +211,7 @@ public class BattleController : MonoBehaviour
         enemyHealth = enemyMaxHealth;
         enemyHealthBar.SetValue(enemyHealth, enemyMaxHealth);
     }
+  
 
     public void DamageEnemy(int damageAmount)
     {
@@ -236,9 +248,17 @@ public class BattleController : MonoBehaviour
         battleEnded = true;
 
         if (enemyHealth <= 0)
-            UIController.instance.resultText.text = "YOU WON!";
+        {
+            Debug.Log("YOU WON!");
+            UIController.instance.showWinPanel();
+        }
+        // UIController.instance.resultText.text = "YOU WON!";
         else
-            UIController.instance.resultText.text = "YOU LOST";
+        {
+            Debug.Log("YOU LOST");
+            UIController.instance.showLosePanel();
+        }
+            //UIController.instance.resultText.text = "YOU LOST";
 
         StartCoroutine(ShowResultCo());
     }
