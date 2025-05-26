@@ -38,6 +38,10 @@ public class Card : MonoBehaviour
     public LayerMask whatIsPlacement;
     public CardPlacePoint assignedPlace;
 
+    public bool canRevive;
+    public bool isStunned;
+    public int stunDuration = 0;
+
 
     private void Awake()
     {
@@ -56,6 +60,9 @@ public class Card : MonoBehaviour
         SetupCard();
 
         theHC = FindObjectOfType<HandController>();
+
+        if (cardSO.cardsSkill == CardScriptableObject.cardSkills.invincible)
+            canRevive = true;
     }
 
     private void Update()
@@ -196,11 +203,20 @@ public class Card : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            if (cardSO.cardsSkill == CardScriptableObject.cardSkills.invincible && canRevive == true)
+            {
+                currentHealth = 1;
+                canRevive = false;
+                UpdateCardDisplay();
+                return;
+            }
+
             currentHealth = 0;
             assignedPlace.activeCard = null;
             MoveToPoint(BattleController.instance.discardPoint.position, BattleController.instance.discardPoint.rotation);
             anim.SetTrigger("jump");
             Destroy(gameObject, 5f);
+
         }
 
         anim.SetTrigger("hurt");
@@ -220,18 +236,14 @@ public class Card : MonoBehaviour
         switch (cardSO.cardsSkill)
         {
             case CardScriptableObject.cardSkills.drawCardOnPlay:
-                if (assignedPlace.isPlayerPoint == true)
+                if (assignedPlace.isPlayerPoint)
                     DeckController.Instance.DrawCardToHand();
                 else
                     EnemyController.instance.EnemyDrawCard();
                 break;
 
             case CardScriptableObject.cardSkills.buffAllies:
-                BuffAllies();
-                break;
-
-            case CardScriptableObject.cardSkills.none:
-            default:
+                BuffAllies(cardSO.buffValue);
                 break;
 
             case CardScriptableObject.cardSkills.kai:
@@ -241,10 +253,34 @@ public class Card : MonoBehaviour
                     CardPointsController.instance.EnemyKaiFlameEveryone();
                 break;
 
+            case CardScriptableObject.cardSkills.gunter:
+                if (assignedPlace.isPlayerPoint)
+                    CardPointsController.instance.PlayerGunterSkill();
+                else
+                    CardPointsController.instance.EnemyGunterSkill();
+                break;
+
+            case CardScriptableObject.cardSkills.gumball:
+                if (assignedPlace.isPlayerPoint)
+                    CardPointsController.instance.PlayerGumball();
+                else
+                    CardPointsController.instance.EnemyGumball();
+                break;
+
+            case CardScriptableObject.cardSkills.spiderman:
+                if (assignedPlace.isPlayerPoint)
+                    CardPointsController.instance.PlayerSpidermanSkill();
+                else
+                    CardPointsController.instance.EnemySpidermanSkill();
+                break;
+
+            case CardScriptableObject.cardSkills.none:
+                default:
+                break;
         }
     }
 
-    private void BuffAllies()
+    private void BuffAllies(int buffVal)
     {
         bool isPlayerSide = assignedPlace.isPlayerPoint;
 
@@ -259,8 +295,8 @@ public class Card : MonoBehaviour
         {
             if (allyPoint.activeCard != null)
             {
-                allyPoint.activeCard.attackPower += 1;
-                allyPoint.activeCard.currentHealth += 1;
+                allyPoint.activeCard.attackPower += buffVal;
+                allyPoint.activeCard.currentHealth += buffVal;
                 allyPoint.activeCard.UpdateCardDisplay();
             }
         }

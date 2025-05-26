@@ -143,6 +143,7 @@ public class BattleController : MonoBehaviour
                 ResetTurnQueue();
                 if (CardPointsController.instance.EnemyHasLloyd())
                     CardPointsController.instance.EnemyLloydSkill();
+                
                 CardPointsController.instance.EnemyAttack();
                 break;
         }

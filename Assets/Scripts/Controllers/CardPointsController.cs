@@ -1,5 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
+using NUnit.Framework;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -10,9 +12,12 @@ public class CardPointsController : MonoBehaviour
     public CardPlacePoint[] playerCardPoints, enemyCardPoints;
     public float waitBetweenAttacks = .3f;
 
+    private Card card;
+
     private void Awake()
     {
         instance = this;
+        card = GetComponent<Card>();
     }
 
     public void PlayerAttack()
@@ -254,9 +259,7 @@ public class CardPointsController : MonoBehaviour
         for (int j = 0; j < enemyCardPoints.Length; j++)
         {
             if (enemyCardPoints[j].activeCard != null)
-            {
                 enemyCardPoints[j].activeCard.DamageCard(2);
-            }
         }
     }
 
@@ -294,6 +297,10 @@ public class CardPointsController : MonoBehaviour
                     Debug.Log("No Lloyd Here");
             }
         }
+        if (card != null)
+        {
+            card.UpdateCardDisplay();
+        }
     }
 
     public void EnemyLloydSkill()
@@ -308,6 +315,10 @@ public class CardPointsController : MonoBehaviour
                     enemyCardPoints[i].activeCard.anim.SetTrigger("jump");
                 }
             }
+        }
+        if (card != null)
+        {
+            card.UpdateCardDisplay();
         }
     }
 
@@ -343,4 +354,133 @@ public class CardPointsController : MonoBehaviour
         return isLloyd;
     }
 
+    public void PlayerGunterSkill()
+    {
+        for (int i = 0; i < playerCardPoints.Length; i++)
+        {
+            if (playerCardPoints[i].activeCard != null &&
+                playerCardPoints[i].activeCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.gunter)
+            {
+                if (i < enemyCardPoints.Length && enemyCardPoints[i].activeCard != null)
+                {
+                    enemyCardPoints[i].activeCard.DamageCard(1);
+                    playerCardPoints[i].activeCard.DamageCard(1);
+                }
+            }
+        }
+    }
+
+    public void EnemyGunterSkill()
+    {
+        for (int i = 0; i < enemyCardPoints.Length; i++)
+        {
+            if (enemyCardPoints[i].activeCard != null && enemyCardPoints[i].activeCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.gunter)
+            {
+                if (i < playerCardPoints.Length && playerCardPoints[i].activeCard != null)
+                {
+                    playerCardPoints[i].activeCard.DamageCard(1);
+                    enemyCardPoints[i].activeCard.DamageCard(1);
+                }
+            }
+        }
+    }
+
+    public void PlayerGumball()
+    {
+        List<Card> validTargets = new List<Card>();
+
+        for (int j = 0; j < enemyCardPoints.Length; j++)
+        {
+            if (enemyCardPoints[j].activeCard != null)
+                validTargets.Add(enemyCardPoints[j].activeCard);
+        }
+
+        if (validTargets.Count > 0)
+        {
+            int randIndex = Random.Range(0, validTargets.Count);
+            Card selectedTarget = validTargets[randIndex];
+
+            selectedTarget.DamageCard(2);
+        }
+        else
+            return;
+    }
+
+    public void EnemyGumball()
+    {
+        List<Card> validTargets = new List<Card>();
+
+        for (int j = 0; j < playerCardPoints.Length; j++)
+        {
+            if (playerCardPoints[j].activeCard != null)
+                validTargets.Add(playerCardPoints[j].activeCard);
+        }
+
+        if (validTargets.Count > 0)
+        {
+            int randIndex = Random.Range(0, validTargets.Count);
+            Card selectedTarget = validTargets[randIndex];
+
+            selectedTarget.DamageCard(2);
+        }
+        else
+            return;
+    }
+
+    public void PlayerSpidermanSkill()
+    {
+        Card highestPowerEnemy = null;
+
+        for (int i = 0; i < enemyCardPoints.Length; i++)
+        {
+            Card enemyCard = enemyCardPoints[i].activeCard;
+
+            if (enemyCard != null)
+            {
+                enemyCard.DamageCard(1);
+
+                if (highestPowerEnemy == null || enemyCard.attackPower > highestPowerEnemy.attackPower)
+                {
+                    highestPowerEnemy = enemyCard;
+                }
+            }
+        }
+
+        if (highestPowerEnemy != null)
+        {
+            highestPowerEnemy.attackPower -= 5;
+            if (highestPowerEnemy.attackPower < 0)
+                highestPowerEnemy.attackPower = 0;
+
+            highestPowerEnemy.UpdateCardDisplay(); 
+        }
+    }
+
+    public void EnemySpidermanSkill()
+    {
+        Card highestPowerPlayer = null;
+
+        for (int i = 0; i < playerCardPoints.Length; i++)
+        {
+            Card playerCard = playerCardPoints[i].activeCard;
+
+            if (playerCard != null)
+            {
+                playerCard.DamageCard(1);
+
+                if (highestPowerPlayer == null || playerCard.attackPower > highestPowerPlayer.attackPower)
+                {
+                    highestPowerPlayer = playerCard;
+                }
+            }
+        }
+
+        if (highestPowerPlayer != null)
+        {
+            highestPowerPlayer.attackPower -= 5;
+            if (highestPowerPlayer.attackPower < 0)
+                highestPowerPlayer.attackPower = 0;
+            highestPowerPlayer.UpdateCardDisplay();
+        }
+    }
 }
