@@ -247,19 +247,6 @@ public class BattleController : MonoBehaviour
     {
         battleEnded = true;
 
-        if (enemyHealth <= 0)
-        {
-            Debug.Log("YOU WON!");
-            UIController.instance.showWinPanel();
-        }
-        // UIController.instance.resultText.text = "YOU WON!";
-        else
-        {
-            Debug.Log("YOU LOST");
-            UIController.instance.showLosePanel();
-        }
-            //UIController.instance.resultText.text = "YOU LOST";
-
         StartCoroutine(ShowResultCo());
     }
 
@@ -267,6 +254,15 @@ public class BattleController : MonoBehaviour
     {
         yield return new WaitForSeconds(resultScreenTimer);
 
-        UIController.instance.endScreen.SetActive(true);
+        if (enemyHealth <= 0)
+        {
+            Debug.Log("YOU WON!");
+            UIController.instance.showWinPanel();
+        }
+        else
+        {
+            Debug.Log("YOU LOST");
+            UIController.instance.showLosePanel();
+        }
     }
 }

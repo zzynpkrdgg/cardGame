@@ -26,7 +26,6 @@ public class UIController : MonoBehaviour
     public string selectedBattleMenu;
     private float counterManaWarning;
 
-    public WinController WinController;
     private void Awake()
     {
         instance = this;
@@ -88,7 +87,7 @@ public class UIController : MonoBehaviour
         winPanel.SetActive(true);
         // myKitty.Play("kittyy");
         // StartCoroutine(MoveKittyAndHide());
-        WinController.showKitty();
+        WinController.instance.showKitty();
     }
    
     public void showLosePanel()

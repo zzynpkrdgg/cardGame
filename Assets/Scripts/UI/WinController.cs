@@ -1,11 +1,5 @@
 using UnityEngine;
-using UnityEngine.UIElements;
-using System.Collections.Generic;
 using System.Collections;
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class WinController : MonoBehaviour
 {
@@ -14,18 +8,13 @@ public class WinController : MonoBehaviour
     public float moveSpeed = 200f;
     public float endXPosition = 1500f;
     public GameObject winPanel;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public static WinController instance;
+
+    private void Awake()
     {
-        
+        instance = this;
     }
-   
 
     public void showKitty()
     {

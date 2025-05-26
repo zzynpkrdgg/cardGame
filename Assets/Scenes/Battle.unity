@@ -4150,7 +4150,6 @@ MonoBehaviour:
   losePanel: {fileID: 1004946376}
   selectedMainMenu: MainMenu
   selectedBattleMenu: Battle
-  WinController: {fileID: 0}
 --- !u!1 &1368490491
 GameObject:
   m_ObjectHideFlags: 0
@@ -5759,14 +5758,14 @@ MonoBehaviour:
   playerMana: 0
   enemyMana: 0
   startingCardsAmount: 4
-  playerHealth: 50
+  playerHealth: 1
   playerHealthBar: {fileID: 406439841}
   playerMaxHealth: 50
   battleEnded: 0
   enemyHealthBar: {fileID: 842393738}
   enemyMaxHealth: 50
   enemyHealth: 50
-  resultScreenTimer: 0
+  resultScreenTimer: 2
   currentPhase: 0
   discardPoint: {fileID: 1217090666}
 --- !u!4 &1945419114
@@ -6655,7 +6654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2147092617
 MonoBehaviour:
   m_ObjectHideFlags: 0
