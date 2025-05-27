@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a21ddfa09e1d5524bbe8bdc55d866c73, type: 3}
+  m_Name: AtomEve
+  m_EditorClassIdentifier: 
+  cardName: Atom Eve
+  actionDescription: When I Die Deal 1 Damage To All Enemies
+  cardLore: 
+  currentHealth: 2
+  attackPower: 3
+  manaCost: 2
+  character: {fileID: 21300000, guid: e0ed13e11a307504e9ee111cf51b688b, type: 3}
+  cardsSkill: 24
+  hasOverwhelm: 0
+  buffValue: 1

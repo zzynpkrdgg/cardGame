@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Kai
   m_EditorClassIdentifier: 
   cardName: Kai
-  actionDescription: 'Play: Deal 2 to all Enemies'
+  actionDescription: 'Play: Deal 2 to all Enemies. Overwhelm.'
   cardLore: The Fire Ninja
   currentHealth: 4
-  attackPower: 5
+  attackPower: 4
   manaCost: 5
   character: {fileID: 21300000, guid: 35688395710a9b04f9a41bbc1b91c8ff, type: 3}
   cardsSkill: 9
+  hasOverwhelm: 1
+  buffValue: 2

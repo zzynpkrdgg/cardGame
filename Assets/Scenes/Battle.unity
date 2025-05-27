@@ -171,6 +171,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cf586c1e5a74f534fa6ae21bf7dd4568, type: 2}
   - {fileID: 11400000, guid: b9c35a566b837c34a927d4f50a77ebdb, type: 2}
   - {fileID: 11400000, guid: 60a4d53cec8764d4bb9fef0432c6e9f0, type: 2}
+  - {fileID: 11400000, guid: d66a33d6170b5014983bd32db0ca28aa, type: 2}
+  - {fileID: 11400000, guid: 7c35f86a46f9c394590eed3195d7a40a, type: 2}
+  - {fileID: 11400000, guid: daf9c56331f4c2444bb3222d054211d3, type: 2}
   cardToSpawn: {fileID: 324638842616194132, guid: 0c3b06d716c44c347a4683a35297d790, type: 3}
   cardSpawnPoint: {fileID: 467537674}
   enemyAIType: 1
@@ -2317,32 +2320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomizeDeck: 1
   deckToUse:
-  - {fileID: 11400000, guid: 7d11765554f36bf43a010e55d14c7970, type: 2}
-  - {fileID: 11400000, guid: 88c33a89d00d0a645a9903b459409f9f, type: 2}
-  - {fileID: 11400000, guid: 173debdfdbe12904182deddcfdf4ebad, type: 2}
-  - {fileID: 11400000, guid: 5fb493b987a02704cb00bf3920db6b0d, type: 2}
-  - {fileID: 11400000, guid: 5b6645615004aae46b67012f24bcc19a, type: 2}
-  - {fileID: 11400000, guid: e696717ee394f31448a639b22ae3c038, type: 2}
-  - {fileID: 11400000, guid: 3980a8fa0fae98d4abc1cfb0dd949075, type: 2}
-  - {fileID: 11400000, guid: afce6fa97b3f7e440baf4df973a72e30, type: 2}
-  - {fileID: 11400000, guid: fc01c78d07edf2d46b81ad6206bc2b85, type: 2}
-  - {fileID: 11400000, guid: 3a5e907385e405340a09a23072e31938, type: 2}
-  - {fileID: 11400000, guid: 04731082381622a4291d36cb67a61170, type: 2}
-  - {fileID: 11400000, guid: 2e5286d2a2b14bb40959a429b2c5b8ee, type: 2}
-  - {fileID: 11400000, guid: 48830f9630072ef4d881af9bd244e429, type: 2}
-  - {fileID: 11400000, guid: 267fdb25fdcb1654a9b224c55cdee61c, type: 2}
-  - {fileID: 11400000, guid: 8147309c502018b4489f33c35237aba4, type: 2}
-  - {fileID: 11400000, guid: 6b36b66f752a25b4b8b5dc5a96b7c544, type: 2}
-  - {fileID: 11400000, guid: a3342db4b1e9a924e86ba5e0310702a1, type: 2}
-  - {fileID: 11400000, guid: 62172cb66fa435b44aa92566f9cafc43, type: 2}
-  - {fileID: 11400000, guid: d2bf4d5d9c193d74c9832427df33c946, type: 2}
-  - {fileID: 11400000, guid: cf9f1386e019e5c4cb60a7d8c2bed5c3, type: 2}
-  - {fileID: 11400000, guid: 7f12532326373374db9c33651e96ca3f, type: 2}
-  - {fileID: 11400000, guid: a1c42f547dde6404cac7fa4f95c2ee11, type: 2}
-  - {fileID: 11400000, guid: cf586c1e5a74f534fa6ae21bf7dd4568, type: 2}
-  - {fileID: 11400000, guid: b9c35a566b837c34a927d4f50a77ebdb, type: 2}
-  - {fileID: 11400000, guid: 5705f37256c55b649b27af83590b75df, type: 2}
-  - {fileID: 11400000, guid: 60a4d53cec8764d4bb9fef0432c6e9f0, type: 2}
+  - {fileID: 11400000, guid: e2ed8a4c601daf341917a93e6792a8bd, type: 2}
   waitForDrawing: 0.25
   bmoCard: {fileID: 11400000, guid: 64b8a045fbe729043898f3bcb44672e7, type: 2}
   alienDeck:

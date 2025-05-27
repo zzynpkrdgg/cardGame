@@ -20,5 +20,5 @@ MonoBehaviour:
   manaCost: 0
   character: {fileID: 21300000, guid: d3ac8c8ae206d104c9dc1b9a6c938b14, type: 3}
   cardsSkill: 7
-  hasOverwhelm: 1
+  hasOverwhelm: 0
   buffValue: 0

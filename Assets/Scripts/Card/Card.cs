@@ -41,6 +41,7 @@ public class Card : MonoBehaviour
     public bool canRevive;
     public bool isStunned;
     public int stunDuration = 0;
+    public bool canOverwhelm;
 
 
     private void Awake()
@@ -79,6 +80,7 @@ public class Card : MonoBehaviour
         currentHealth = cardSO.currentHealth;
         attackPower = cardSO.attackPower;
         manaCost = cardSO.manaCost;
+        canOverwhelm = cardSO.hasOverwhelm;
 
         UpdateCardDisplay();
 
@@ -217,6 +219,11 @@ public class Card : MonoBehaviour
             if (cardSO.cardsSkill == CardScriptableObject.cardSkills.drawCardOnDeath)
                 DeckController.Instance.DrawCardToHand();
 
+            if (cardSO.cardsSkill == CardScriptableObject.cardSkills.atomEve && assignedPlace.isPlayerPoint)
+                CardPointsController.instance.PlayerKaiFlameEveryone(cardSO.buffValue);
+            else if (cardSO.cardsSkill == CardScriptableObject.cardSkills.atomEve && assignedPlace.isPlayerPoint == false)
+                CardPointsController.instance.EnemyKaiFlameEveryone(cardSO.buffValue);
+
             currentHealth = 0;
             assignedPlace.activeCard = null;
             MoveToPoint(BattleController.instance.discardPoint.position, BattleController.instance.discardPoint.rotation);
@@ -254,9 +261,9 @@ public class Card : MonoBehaviour
 
             case CardScriptableObject.cardSkills.kai:
                 if (assignedPlace.isPlayerPoint)
-                    CardPointsController.instance.PlayerKaiFlameEveryone();
+                    CardPointsController.instance.PlayerKaiFlameEveryone(cardSO.buffValue);
                 else
-                    CardPointsController.instance.EnemyKaiFlameEveryone();
+                    CardPointsController.instance.PlayerKaiFlameEveryone(cardSO.buffValue);
                 break;
 
             case CardScriptableObject.cardSkills.gunter:
@@ -308,6 +315,22 @@ public class Card : MonoBehaviour
             case CardScriptableObject.cardSkills.ben10:
                 if (assignedPlace.isPlayerPoint)
                     DeckController.Instance.DrawAlienToHand();
+                break;
+
+            case CardScriptableObject.cardSkills.flapjack:
+                if (assignedPlace.isPlayerPoint)
+                    CardPointsController.instance.FlapjackSkill();
+                break;
+
+            case CardScriptableObject.cardSkills.rick:
+                RickBuff();
+                break;
+
+            case CardScriptableObject.cardSkills.mordecai:
+                if (assignedPlace.isPlayerPoint)
+                    CardPointsController.instance.PlayerMordecai();
+                else
+                    CardPointsController.instance.EnemyMordecai();
                 break;
 
             case CardScriptableObject.cardSkills.none:
@@ -374,5 +397,29 @@ public class Card : MonoBehaviour
         attackPower = Random.Range(1, 7);
         anim.SetTrigger("jump");
         UpdateCardDisplay();
+    }
+
+    public void RickBuff()
+    {
+        bool isPlayerSide = assignedPlace.isPlayerPoint;
+
+        CardPlacePoint[] allies;
+
+        if (isPlayerSide)
+            allies = CardPointsController.instance.playerCardPoints;
+        else
+            allies = CardPointsController.instance.enemyCardPoints;
+
+        foreach (var allyPoint in allies)
+        {
+            if (allyPoint.activeCard != null && isPlayerSide && allyPoint.activeCard.cardSO.cardsSkill != CardScriptableObject.cardSkills.rick)
+            {
+                allyPoint.activeCard.canOverwhelm = true;
+            }
+            if (allyPoint.activeCard != null && isPlayerSide == false && allyPoint.activeCard.cardSO.cardsSkill != CardScriptableObject.cardSkills.rick)
+            {
+                allyPoint.activeCard.canOverwhelm = true;
+            }
+        }
     }
 }

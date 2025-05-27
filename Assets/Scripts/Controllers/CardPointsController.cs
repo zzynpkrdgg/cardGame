@@ -35,7 +35,7 @@ public class CardPointsController : MonoBehaviour
 
             if (attacker != null)
             {
-                if (attacker.cardSO.hasOverwhelm)
+                if (attacker.canOverwhelm)
                 {
                     int tempHealth;
                     int overwhelmDamage;
@@ -159,7 +159,7 @@ public class CardPointsController : MonoBehaviour
 
             if (attacker != null)
             {
-                if (attacker.cardSO.hasOverwhelm)
+                if (attacker.canOverwhelm)
                 {
                     int tempHealth;
                     int overwhelmDamage;
@@ -286,30 +286,22 @@ public class CardPointsController : MonoBehaviour
         }
     }
 
-    public void PlayerKaiFlameEveryone()
+    public void PlayerKaiFlameEveryone(int damageAmount)
     {
         for (int j = 0; j < enemyCardPoints.Length; j++)
         {
             if (enemyCardPoints[j].activeCard != null)
-                enemyCardPoints[j].activeCard.DamageCard(2);
+                enemyCardPoints[j].activeCard.DamageCard(damageAmount);
         }
     }
 
-    public void EnemyKaiFlameEveryone()
+    public void EnemyKaiFlameEveryone(int damageAmount)
     {
-        Debug.Log("EnemyKaiFlameEveryone called");
-        Debug.Log("playerCardPoints length: " + playerCardPoints.Length);
-
         for (int j = 0; j < playerCardPoints.Length; j++)
         {
             if (playerCardPoints[j].activeCard != null)
             {
-                Debug.Log($"Damaging player card at point {j}");
-                playerCardPoints[j].activeCard.DamageCard(2);
-            }
-            else
-            {
-                Debug.Log($"No active card at playerCardPoints[{j}]");
+                playerCardPoints[j].activeCard.DamageCard(damageAmount);
             }
         }
     }
@@ -671,4 +663,87 @@ public class CardPointsController : MonoBehaviour
         return isBmo;
     }
 
+    public void FlapjackSkill()
+    {
+        for (int i = 0; i < playerCardPoints.Length; i++)
+        {
+            if (playerCardPoints[i].activeCard != null &&
+                playerCardPoints[i].activeCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.flapjack)
+            {
+                List<Card> validTargets = new List<Card>();
+
+                for (int j = 0; j < enemyCardPoints.Length; j++)
+                {
+                    if (playerCardPoints[j].activeCard != null && playerCardPoints[j].activeCard.cardSO.cardsSkill != CardScriptableObject.cardSkills.flapjack)
+                        validTargets.Add(playerCardPoints[j].activeCard);
+                }
+
+                if (validTargets.Count > 0)
+                {
+                    int randIndex = Random.Range(0, validTargets.Count);
+                    Card selectedTarget = validTargets[randIndex];
+
+                    selectedTarget.currentHealth += 2;
+                    selectedTarget.UpdateCardDisplay();
+                }
+                playerCardPoints[i].activeCard.DamageCard(1);
+            }
+        }
+    }
+
+    public void PlayerMordecai()
+    {
+        List<Card> validTargets = new List<Card>();
+
+        for (int j = 0; j < enemyCardPoints.Length; j++)
+        {
+            if (enemyCardPoints[j].activeCard != null)
+                validTargets.Add(enemyCardPoints[j].activeCard);
+        }  
+
+        if (validTargets.Count > 0)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                int randIndex = Random.Range(0, validTargets.Count);
+                Card selectedTarget = validTargets[randIndex];
+                selectedTarget.DamageCard(1);
+
+                validTargets.RemoveAt(randIndex);
+
+                if (validTargets.Count == 0)
+                    break;
+            }
+        }
+        else
+            return;
+    }
+
+    public void EnemyMordecai()
+    {
+        List<Card> validTargets = new List<Card>();
+
+        for (int j = 0; j < playerCardPoints.Length; j++)
+        {
+            if (playerCardPoints[j].activeCard != null)
+                validTargets.Add(playerCardPoints[j].activeCard);
+        }
+
+        if (validTargets.Count > 0)
+        {
+            for (int k = 0; k < 3; k++)
+            {
+                int randIndex = Random.Range(0, validTargets.Count);
+                Card selectedTarget = validTargets[randIndex];
+                selectedTarget.DamageCard(1);
+
+                validTargets.RemoveAt(randIndex);
+
+                if (validTargets.Count == 0)
+                    break;
+            }
+        }
+        else
+            return;
+    }
 }
