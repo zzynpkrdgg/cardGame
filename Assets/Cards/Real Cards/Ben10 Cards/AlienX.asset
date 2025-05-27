@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a21ddfa09e1d5524bbe8bdc55d866c73, type: 3}
-  m_Name: Naruto
+  m_Name: AlienX
   m_EditorClassIdentifier: 
-  cardName: Naruto
-  actionDescription: Kill EVERYONE EXCEPT ME
+  cardName: AlienX
+  actionDescription: 'Attack: Deal 3 To The Enemy'
   cardLore: 
   currentHealth: 10
-  attackPower: 15
-  manaCost: 10
-  character: {fileID: 21300000, guid: 1885ef2c773f5664eabc37ce843b8538, type: 3}
-  cardsSkill: 16
+  attackPower: 10
+  manaCost: 0
+  character: {fileID: 21300000, guid: 8c7375484ca888d4b8f4973d3a0c9b0a, type: 3}
+  cardsSkill: 8
   buffValue: 0

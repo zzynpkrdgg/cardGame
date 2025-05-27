@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a21ddfa09e1d5524bbe8bdc55d866c73, type: 3}
-  m_Name: BabyDucks
+  m_Name: JohnnyBravo
   m_EditorClassIdentifier: 
-  cardName: Baby Ducks
-  actionDescription: 'Attack: Deal 5 To All Enemies'
-  cardLore: 5 Baby Ducks Comes Together
-  currentHealth: 10
-  attackPower: 6
-  manaCost: 8
-  character: {fileID: 21300000, guid: 4659118df40c2524e80ab3737df700eb, type: 3}
-  cardsSkill: 5
+  cardName: Johnny Bravo
+  actionDescription: Overwhelm.
+  cardLore: 
+  currentHealth: 6
+  attackPower: 7
+  manaCost: 6
+  character: {fileID: 21300000, guid: d80889f27c6d7e047a448f89e55840f9, type: 3}
+  cardsSkill: 0
+  hasOverwhelm: 1
   buffValue: 0

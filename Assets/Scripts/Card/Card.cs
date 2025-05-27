@@ -301,6 +301,15 @@ public class Card : MonoBehaviour
                 HealYourself(cardSO.buffValue);
                 break;
 
+            case CardScriptableObject.cardSkills.captainK:
+                RandomStats();
+                break;
+
+            case CardScriptableObject.cardSkills.ben10:
+                if (assignedPlace.isPlayerPoint)
+                    DeckController.Instance.DrawAlienToHand();
+                break;
+
             case CardScriptableObject.cardSkills.none:
                 default:
                 break;
@@ -357,5 +366,13 @@ public class Card : MonoBehaviour
                 UIController.instance.UpdateEnemyHealth();
             }
         }
+    }
+
+    public void RandomStats()
+    {
+        currentHealth = Random.Range(1, 7);
+        attackPower = Random.Range(1, 7);
+        anim.SetTrigger("jump");
+        UpdateCardDisplay();
     }
 }

@@ -35,6 +35,20 @@ public class CardPointsController : MonoBehaviour
 
             if (attacker != null)
             {
+                if (attacker.cardSO.hasOverwhelm)
+                {
+                    int tempHealth;
+                    int overwhelmDamage;
+
+                    if (enemyCardPoints[i].activeCard != null)
+                    {
+                        tempHealth = enemyCardPoints[i].activeCard.currentHealth;
+                        overwhelmDamage = attacker.cardSO.attackPower;
+                        overwhelmDamage -= tempHealth;
+                        BattleController.instance.DamageEnemy(overwhelmDamage);
+                    }
+                }
+
                 if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.attackAllEnemies)
                 {
                     if (i < enemyCardPoints.Length && enemyCardPoints[i].activeCard != null)
@@ -68,10 +82,10 @@ public class CardPointsController : MonoBehaviour
                         {
                             if (enemyCardPoints[j].activeCard != null)
                             {
-                                enemyCardPoints[j].activeCard.DamageCard(5);
+                                enemyCardPoints[j].activeCard.DamageCard(attacker.cardSO.buffValue);
                             }
                         }
-                        BattleController.instance.DamageEnemy(5);
+                        BattleController.instance.DamageEnemy(attacker.cardSO.buffValue);
                     }
                     else
                     {
@@ -79,10 +93,10 @@ public class CardPointsController : MonoBehaviour
                         {
                             if (enemyCardPoints[j].activeCard != null)
                             {
-                                enemyCardPoints[j].activeCard.DamageCard(5);
+                                enemyCardPoints[j].activeCard.DamageCard(attacker.cardSO.buffValue);
                             }
                         }
-                        BattleController.instance.DamageEnemy(5);
+                        BattleController.instance.DamageEnemy(attacker.cardSO.buffValue);
                         BattleController.instance.DamageEnemy(attacker.attackPower);
                     }
                 }
@@ -106,7 +120,7 @@ public class CardPointsController : MonoBehaviour
                     DeckController.Instance.DrawCardToHand();
 
                 if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.omniman)
-                    BattleController.instance.DamageEnemy(10);
+                    BattleController.instance.DamageEnemy(attacker.cardSO.buffValue);
 
                 if (attacker.anim != null)
                     attacker.anim.SetTrigger("attack");
@@ -145,6 +159,20 @@ public class CardPointsController : MonoBehaviour
 
             if (attacker != null)
             {
+                if (attacker.cardSO.hasOverwhelm)
+                {
+                    int tempHealth;
+                    int overwhelmDamage;
+
+                    if (playerCardPoints[i].activeCard != null)
+                    {
+                        tempHealth = playerCardPoints[i].activeCard.currentHealth;
+                        overwhelmDamage = attacker.cardSO.attackPower;
+                        overwhelmDamage -= tempHealth;
+                        BattleController.instance.DamagePlayer(overwhelmDamage);
+                    }
+                }
+
                 if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.attackAllEnemies)
                 {
                     if (i < playerCardPoints.Length && playerCardPoints[i].activeCard != null)
@@ -177,10 +205,10 @@ public class CardPointsController : MonoBehaviour
                         {
                             if (playerCardPoints[j].activeCard != null)
                             {
-                                playerCardPoints[j].activeCard.DamageCard(5);
+                                playerCardPoints[j].activeCard.DamageCard(attacker.cardSO.buffValue);
                             }
                         }
-                        BattleController.instance.DamagePlayer(5);
+                        BattleController.instance.DamagePlayer(attacker.cardSO.buffValue);
                     }
                     else
                     {
@@ -188,10 +216,10 @@ public class CardPointsController : MonoBehaviour
                         {
                             if (playerCardPoints[j].activeCard != null)
                             {
-                                playerCardPoints[j].activeCard.DamageCard(5);
+                                playerCardPoints[j].activeCard.DamageCard(attacker.cardSO.buffValue);
                             }
                         }
-                        BattleController.instance.DamagePlayer(5);
+                        BattleController.instance.DamagePlayer(attacker.cardSO.buffValue);
                         BattleController.instance.DamagePlayer(attacker.attackPower);
                     }
                 }
@@ -213,7 +241,7 @@ public class CardPointsController : MonoBehaviour
                     EnemyController.instance.EnemyDrawCard();
 
                 if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.omniman)
-                    BattleController.instance.DamagePlayer(10);
+                    BattleController.instance.DamagePlayer(attacker.cardSO.buffValue);
 
                 if (attacker.anim != null)
                     attacker.anim.SetTrigger("attack");

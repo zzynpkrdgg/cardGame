@@ -12,8 +12,9 @@ public class CardScriptableObject : ScriptableObject
     public int currentHealth, attackPower, manaCost;
     public Sprite character;
     public enum cardSkills { none, drawCardOnPlay, attackAllEnemies, drawCardOnAttack, allenTheAlien, babyDucks, buffAllies, lifeSteal, omniman, kai, lloyd, gunter, 
-    invincible, gumball, spiderman, anais, naruto, idaho, drawCardOnDeath, finn, bmo, healYourself}
+    invincible, gumball, spiderman, anais, naruto, idaho, drawCardOnDeath, finn, bmo, healYourself, captainK, ben10}
     public cardSkills cardsSkill;
 
+    public bool hasOverwhelm;
     public int buffValue;
 }

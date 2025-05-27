@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a21ddfa09e1d5524bbe8bdc55d866c73, type: 3}
+  m_Name: BabyDucks
+  m_EditorClassIdentifier: 
+  cardName: Baby Ducks
+  actionDescription: 'Attack: Deal 5 To All Enemies. Overwhelm.'
+  cardLore: 5 Baby Ducks Comes Together
+  currentHealth: 10
+  attackPower: 6
+  manaCost: 8
+  character: {fileID: 21300000, guid: 4659118df40c2524e80ab3737df700eb, type: 3}
+  cardsSkill: 5
+  hasOverwhelm: 1
+  buffValue: 5

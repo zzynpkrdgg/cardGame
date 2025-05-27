@@ -14,6 +14,9 @@ public class DeckController : MonoBehaviour
     [SerializeField] private float waitForDrawing = .25f;
     public CardScriptableObject bmoCard;
 
+    public List<CardScriptableObject> alienDeck = new List<CardScriptableObject>();
+    [SerializeField] private MyStack<CardScriptableObject> activeAliens = new MyStack<CardScriptableObject>();
+
     public Card cardToSpawn;
 
     private void Awake()
@@ -24,8 +27,14 @@ public class DeckController : MonoBehaviour
     private void Start()
     {
         SetUpDeck();
+        SetUpAlienDeck();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+            DrawAlienToHand();
+    }
 
     public void SetUpDeck()
     {
@@ -41,6 +50,21 @@ public class DeckController : MonoBehaviour
             activeCards.Push(tempDeck[i]);
         }
 
+    }
+
+    public void SetUpAlienDeck()
+    {
+        activeAliens = new MyStack<CardScriptableObject>();
+        List<CardScriptableObject> tempDeck = new List<CardScriptableObject>();
+        tempDeck.AddRange(alienDeck);
+
+        if (randomizeDeck)
+            Shuffle(tempDeck);
+
+        for (int i = 0; i < alienDeck.Count; i++)
+        {
+            activeAliens.Push(tempDeck[i]);
+        }
     }
 
     public void DrawCardToHand()
@@ -80,6 +104,26 @@ public class DeckController : MonoBehaviour
             list[i] = list[rand];
             list[rand] = temp;
         }
+    }
+
+    public void DrawAlienToHand()
+    {
+        if (HandController.instance.heldCard.Count < 10)
+        {
+            if (activeCards.IsEmpty())
+            {
+                SetUpAlienDeck();
+            }
+            if (!activeCards.IsEmpty())
+            {
+                Card newCard = Instantiate(cardToSpawn, transform.position, transform.rotation);
+                newCard.cardSO = activeAliens.Pop();
+                newCard.SetupCard();
+                HandController.instance.AddCardToHand(newCard);
+            }
+        }
+        else
+            Debug.Log("Max Hand");
     }
 
     public void DrawCardForMana(int manaCost)

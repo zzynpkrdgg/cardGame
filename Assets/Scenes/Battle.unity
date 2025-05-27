@@ -169,6 +169,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 88c33a89d00d0a645a9903b459409f9f, type: 2}
   - {fileID: 11400000, guid: 62172cb66fa435b44aa92566f9cafc43, type: 2}
   - {fileID: 11400000, guid: cf586c1e5a74f534fa6ae21bf7dd4568, type: 2}
+  - {fileID: 11400000, guid: b9c35a566b837c34a927d4f50a77ebdb, type: 2}
+  - {fileID: 11400000, guid: 60a4d53cec8764d4bb9fef0432c6e9f0, type: 2}
   cardToSpawn: {fileID: 324638842616194132, guid: 0c3b06d716c44c347a4683a35297d790, type: 3}
   cardSpawnPoint: {fileID: 467537674}
   enemyAIType: 1
@@ -2338,8 +2340,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7f12532326373374db9c33651e96ca3f, type: 2}
   - {fileID: 11400000, guid: a1c42f547dde6404cac7fa4f95c2ee11, type: 2}
   - {fileID: 11400000, guid: cf586c1e5a74f534fa6ae21bf7dd4568, type: 2}
+  - {fileID: 11400000, guid: b9c35a566b837c34a927d4f50a77ebdb, type: 2}
+  - {fileID: 11400000, guid: 5705f37256c55b649b27af83590b75df, type: 2}
+  - {fileID: 11400000, guid: 60a4d53cec8764d4bb9fef0432c6e9f0, type: 2}
   waitForDrawing: 0.25
   bmoCard: {fileID: 11400000, guid: 64b8a045fbe729043898f3bcb44672e7, type: 2}
+  alienDeck:
+  - {fileID: 11400000, guid: ebc7f6f160155a64892a1ffbfbb57e33, type: 2}
+  - {fileID: 11400000, guid: a3256d9c18759a74d9346fa00cdbd343, type: 2}
+  - {fileID: 11400000, guid: 049e7a10297bedd48b2e898591645a64, type: 2}
+  - {fileID: 11400000, guid: ebc7f6f160155a64892a1ffbfbb57e33, type: 2}
+  - {fileID: 11400000, guid: a3256d9c18759a74d9346fa00cdbd343, type: 2}
+  - {fileID: 11400000, guid: 049e7a10297bedd48b2e898591645a64, type: 2}
+  - {fileID: 11400000, guid: ebc7f6f160155a64892a1ffbfbb57e33, type: 2}
+  - {fileID: 11400000, guid: a3256d9c18759a74d9346fa00cdbd343, type: 2}
+  - {fileID: 11400000, guid: 049e7a10297bedd48b2e898591645a64, type: 2}
+  - {fileID: 11400000, guid: 6414d5be5f971794a854bb7fac9a5bc3, type: 2}
   cardToSpawn: {fileID: 3028268254949457534, guid: d98f726924b83ef46b27e6b5834e9d47, type: 3}
 --- !u!4 &804185222
 Transform:
@@ -5004,10 +5020,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 9b52548ca2c3ee345bab90ba9b186639, type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 8ccedc9d31bde3b449554019cc672a2f, type: 3}
-    m_SelectedSprite: {fileID: 21300000, guid: c177e50223926644aa24a80bfdd67be5, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: c177e50223926644aa24a80bfdd67be5, type: 3}
+    m_HighlightedSprite: {fileID: -799221347, guid: bfce2b5b821b4ca4e8c52e09eea27a4d, type: 3}
+    m_PressedSprite: {fileID: -799221347, guid: bfce2b5b821b4ca4e8c52e09eea27a4d, type: 3}
+    m_SelectedSprite: {fileID: -799221347, guid: bfce2b5b821b4ca4e8c52e09eea27a4d, type: 3}
+    m_DisabledSprite: {fileID: 2147137485, guid: bfce2b5b821b4ca4e8c52e09eea27a4d, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
