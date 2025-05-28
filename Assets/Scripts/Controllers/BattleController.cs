@@ -55,6 +55,12 @@ public class BattleController : MonoBehaviour
         DeckController.Instance.DrawMultipleCards(startingCardsAmount);
     }
 
+    private void Update()
+    {
+        SetupAggression();
+    }
+
+
     private static void SetupHealthText()
     {
         UIController.instance.UpdatePlayerHealth();
@@ -71,12 +77,6 @@ public class BattleController : MonoBehaviour
         currentPhase = turnQueue.Dequeue();
         HandlePhase(currentPhase);
     }
-
-    private void Update()
-    {
-        SetupAggression();
-    }
-
     private void SetupAggression()
     {
         if (enemyHealth < 25 || currentEnemyMaxMana < 5)
@@ -95,8 +95,6 @@ public class BattleController : MonoBehaviour
 
             HandlePhase(currentPhase); 
         }
-
-        
     }
 
     public void FillPlayerMana()
