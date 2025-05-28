@@ -9,7 +9,7 @@ public class HandController : MonoBehaviour
     public static HandController instance;
 
     public MyLinkedList<Card> heldCard = new MyLinkedList<Card>();
-    public List<Card> tempCard = new List<Card>();
+    //public List<Card> tempCard = new List<Card>();
 
     public Transform minPos, maxPos;
     public List<Vector3> cardPositions = new List<Vector3>();
@@ -21,15 +21,15 @@ public class HandController : MonoBehaviour
 
     private void Start()
     {
-        SetupLinkedList();
+        //SetupLinkedList();
         SetCardPositionsInHand();
     }
 
-    private void SetupLinkedList()
+    /*private void SetupLinkedList()
     {
         for (int i = 0; i < tempCard.Count; i++)
             heldCard.Add(tempCard[i]);
-    }
+    }*/
 
     public void SetCardPositionsInHand()
     {
