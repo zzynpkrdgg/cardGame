@@ -100,7 +100,6 @@ public class CardPointsController : MonoBehaviour
                         BattleController.instance.DamageEnemy(attacker.attackPower);
                     }
                 }
-
                 else
                 {
                     if (i < enemyCardPoints.Length && enemyCardPoints[i].activeCard != null)
@@ -114,7 +113,7 @@ public class CardPointsController : MonoBehaviour
                         LifeStealPlayer(attacker);
                     }
                 }
-                
+
 
                 if (attacker.cardSO.cardsSkill == CardScriptableObject.cardSkills.drawCardOnAttack)
                     DeckController.Instance.DrawCardToHand();
@@ -474,7 +473,7 @@ public class CardPointsController : MonoBehaviour
             if (highestPowerEnemy.attackPower < 0)
                 highestPowerEnemy.attackPower = 0;
 
-            highestPowerEnemy.UpdateCardDisplay(); 
+            highestPowerEnemy.UpdateCardDisplay();
         }
     }
 
@@ -699,7 +698,7 @@ public class CardPointsController : MonoBehaviour
         {
             if (enemyCardPoints[j].activeCard != null)
                 validTargets.Add(enemyCardPoints[j].activeCard);
-        }  
+        }
 
         if (validTargets.Count > 0)
         {
@@ -746,4 +745,6 @@ public class CardPointsController : MonoBehaviour
         else
             return;
     }
+
+
 }

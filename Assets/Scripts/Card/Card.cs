@@ -216,6 +216,8 @@ public class Card : MonoBehaviour
                 return;
             }
 
+            BatmanSkill();
+
             if (cardSO.cardsSkill == CardScriptableObject.cardSkills.drawCardOnDeath)
                 DeckController.Instance.DrawCardToHand();
 
@@ -333,6 +335,23 @@ public class Card : MonoBehaviour
                     CardPointsController.instance.EnemyMordecai();
                 break;
 
+            case CardScriptableObject.cardSkills.skips:
+                SkipsBuff(cardSO.buffValue);
+                break;
+
+            case CardScriptableObject.cardSkills.kralSakir:
+                DeckController.Instance.DrawCardToHand();
+                EnemyController.instance.EnemyDrawCard();
+                break;
+
+            case CardScriptableObject.cardSkills.squidWard:
+                SquidWardSkill();
+                break;
+
+            case CardScriptableObject.cardSkills.tom:
+                TomSkill();
+                break;
+
             case CardScriptableObject.cardSkills.none:
                 default:
                 break;
@@ -422,4 +441,114 @@ public class Card : MonoBehaviour
             }
         }
     }
+
+    public void SkipsBuff(int buffVal)
+    {
+        bool isPlayerSide = assignedPlace.isPlayerPoint;
+
+        CardPlacePoint[] allies;
+
+        if (isPlayerSide)
+            allies = CardPointsController.instance.playerCardPoints;
+        else
+            allies = CardPointsController.instance.enemyCardPoints;
+
+        foreach (var allyPoint in allies)
+        {
+            if (allyPoint.activeCard != null && isPlayerSide && allyPoint.activeCard.cardSO.cardsSkill != CardScriptableObject.cardSkills.skips && allyPoint.activeCard.canOverwhelm == true)
+            {
+                allyPoint.activeCard.attackPower += buffVal;
+                allyPoint.activeCard.UpdateCardDisplay();
+            }
+            if (allyPoint.activeCard != null && isPlayerSide == false && allyPoint.activeCard.cardSO.cardsSkill != CardScriptableObject.cardSkills.skips && allyPoint.activeCard.canOverwhelm == true)
+            {
+                allyPoint.activeCard.attackPower += buffVal;
+                allyPoint.activeCard.UpdateCardDisplay();
+            }
+        }
+    }
+
+    public void SquidWardSkill()
+    {
+        bool isPlayerSide = assignedPlace.isPlayerPoint;
+
+        CardPlacePoint[] enemies;
+
+        if (isPlayerSide)
+            enemies = CardPointsController.instance.enemyCardPoints;
+        else
+            enemies = CardPointsController.instance.playerCardPoints;
+
+        foreach (var enemyPoint in enemies)
+        {
+            if (enemyPoint.activeCard != null)
+            {
+                enemyPoint.activeCard.attackPower -= 1;
+                enemyPoint.activeCard.DamageCard(1);
+            }
+        }
+    }
+
+    public void BatmanSkill()
+    {
+        CardPlacePoint[] enemySide;
+        CardPlacePoint[] playerSide;
+
+        enemySide = CardPointsController.instance.enemyCardPoints;
+        playerSide = CardPointsController.instance.playerCardPoints;
+
+        foreach (var batman in enemySide)
+        {
+            if (batman.activeCard != null && batman.activeCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.batman)
+            {
+                batman.activeCard.attackPower++;
+                batman.activeCard.UpdateCardDisplay();
+            }
+        }
+
+        foreach (var batman in playerSide)
+        {
+            if (batman.activeCard != null && batman.activeCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.batman)
+            {
+                batman.activeCard.attackPower++;
+                batman.activeCard.UpdateCardDisplay();
+            }
+        }
+    }
+
+    public void TomSkill()
+    { 
+        bool isPlayerSide = assignedPlace.isPlayerPoint;
+
+        CardPlacePoint[] placement;
+
+        if (isPlayerSide)
+            placement = CardPointsController.instance.playerCardPoints;
+        else
+            placement = CardPointsController.instance.enemyCardPoints;
+
+        foreach (var pointNum in placement)
+        {
+            Debug.Log("p");
+            if (pointNum.activeCard != null && pointNum.activeCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.tom && (pointNum.activeCard.assignedPlace == placement[0] || pointNum.activeCard.assignedPlace == placement[1]))
+            {
+                pointNum.activeCard.attackPower = 3;
+                pointNum.activeCard.currentHealth = 1;
+                pointNum.activeCard.UpdateCardDisplay();
+            }
+            if (pointNum.activeCard != null && pointNum.activeCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.tom && (pointNum.activeCard.assignedPlace == placement[2]))
+            {
+                pointNum.activeCard.attackPower = 2;
+                pointNum.activeCard.currentHealth = 2;
+                pointNum.activeCard.UpdateCardDisplay();
+            }
+            if (pointNum.activeCard != null && pointNum.activeCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.tom && (pointNum.activeCard.assignedPlace == placement[3] || pointNum.activeCard.assignedPlace == placement[4]))
+            {
+                pointNum.activeCard.attackPower = 1;
+                pointNum.activeCard.currentHealth = 3;
+                pointNum.activeCard.UpdateCardDisplay();
+            }
+        }
+    }
+
 }
