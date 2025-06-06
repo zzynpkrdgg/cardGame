@@ -745,6 +745,4 @@ public class CardPointsController : MonoBehaviour
         else
             return;
     }
-
-
 }

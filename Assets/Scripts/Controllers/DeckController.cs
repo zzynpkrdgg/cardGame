@@ -7,10 +7,11 @@ public class DeckController : MonoBehaviour
 
 {
     public static DeckController Instance;
+    private UI_DeckBuilder db;
 
     [SerializeField] private bool randomizeDeck;
-    public List<CardScriptableObject> deckToUse = new List<CardScriptableObject>();
-    [SerializeField] private MyStack<CardScriptableObject> activeCards= new MyStack<CardScriptableObject>();
+    private List<CardScriptableObject> deckToUse = new List<CardScriptableObject>();
+    private MyStack<CardScriptableObject> activeCards= new MyStack<CardScriptableObject>();
     [SerializeField] private float waitForDrawing = .25f;
     public CardScriptableObject bmoCard;
 
@@ -26,6 +27,7 @@ public class DeckController : MonoBehaviour
 
     private void Start()
     {
+        TransferDeck();
         SetUpDeck();
         SetUpAlienDeck();
     }
@@ -34,6 +36,11 @@ public class DeckController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
             DrawAlienToHand();
+    }
+
+    private void TransferDeck()
+    {
+         deckToUse = UI_DeckBuilder.instance.selectedCards;
     }
 
     public void SetUpDeck()

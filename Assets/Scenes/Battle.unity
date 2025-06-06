@@ -2319,12 +2319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomizeDeck: 1
-  deckToUse:
-  - {fileID: 11400000, guid: b14b77084b9b2e648866c6d743e30fcf, type: 2}
-  - {fileID: 11400000, guid: ca1f4b74a5754cc4096d4fa0faa5ad3c, type: 2}
-  - {fileID: 11400000, guid: 6adedcbc778b9314b8a82e19cc0876bf, type: 2}
-  - {fileID: 11400000, guid: 6e3653613b84bb541866687b14809f74, type: 2}
-  - {fileID: 11400000, guid: 8a8f2c115db1f76438da7a1ed3c3fff2, type: 2}
+  deckToUse: []
   waitForDrawing: 0.25
   bmoCard: {fileID: 11400000, guid: 64b8a045fbe729043898f3bcb44672e7, type: 2}
   alienDeck:
