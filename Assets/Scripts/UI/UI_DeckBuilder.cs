@@ -9,6 +9,7 @@ public class UI_DeckBuilder : MonoBehaviour
     [SerializeField] private UI_CardButton buttonPrefab;
     [SerializeField] private Transform buttonsParent;
     [SerializeField] private TMP_Text deckCountText;
+    [SerializeField] private TMP_Text filterText;
     private List<UI_CardButton> buttonPool = new List<UI_CardButton>();
     private bool listedByMana = true;
 
@@ -56,9 +57,15 @@ public class UI_DeckBuilder : MonoBehaviour
         listedByMana = !listedByMana;
 
         if (listedByMana)
+        {
             SortCardsByManaAndName();
+            filterText.text = "MANA";
+        }
         else
+        {
             SortCardsByName();
+            filterText.text = "NAME";
+        }
 
         CreateButtons();
     }

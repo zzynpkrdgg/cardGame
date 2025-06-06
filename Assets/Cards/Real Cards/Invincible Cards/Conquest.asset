@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a21ddfa09e1d5524bbe8bdc55d866c73, type: 3}
-  m_Name: Ben10
+  m_Name: Conquest
   m_EditorClassIdentifier: 
-  cardName: Ben10
-  actionDescription: 'Play: Draw Random Alien'
+  cardName: Conquest
+  actionDescription: After 6 Power Points I Get Overwhelm.
   cardLore: 
-  currentHealth: 3
-  attackPower: 1
-  manaCost: 6
-  character: {fileID: 21300000, guid: 3110ba4add425834e96e08e012027294, type: 3}
-  cardsSkill: 23
+  currentHealth: 4
+  attackPower: 4
+  manaCost: 4
+  character: {fileID: 21300000, guid: 8415765cb4db20946a95a04123e5d178, type: 3}
+  cardsSkill: 34
   hasOverwhelm: 0
-  buffValue: 1
+  buffValue: 6

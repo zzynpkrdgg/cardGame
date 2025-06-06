@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a21ddfa09e1d5524bbe8bdc55d866c73, type: 3}
-  m_Name: Ben10
+  m_Name: MaxTennyson
   m_EditorClassIdentifier: 
-  cardName: Ben10
-  actionDescription: 'Play: Draw Random Alien'
+  cardName: Max Tennyson
+  actionDescription: Draw 3 Alien
   cardLore: 
-  currentHealth: 3
-  attackPower: 1
-  manaCost: 6
-  character: {fileID: 21300000, guid: 3110ba4add425834e96e08e012027294, type: 3}
+  currentHealth: 6
+  attackPower: 7
+  manaCost: 8
+  character: {fileID: 21300000, guid: 19132aed6a9b0d149ac79085dc9f8923, type: 3}
   cardsSkill: 23
-  hasOverwhelm: 0
-  buffValue: 1
+  hasOverwhelm: 1
+  buffValue: 3

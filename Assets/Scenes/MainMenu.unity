@@ -236,6 +236,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleSelectedscene: Battle
+  mainMenu: {fileID: 739057812}
+  deckMenu: {fileID: 602380290}
 --- !u!1 &152397663
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,7 +557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &602380291
 RectTransform:
   m_ObjectHideFlags: 0
@@ -654,7 +656,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.00011757433}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 5}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &657695680
 MonoBehaviour:
@@ -711,7 +713,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &739057813
 RectTransform:
   m_ObjectHideFlags: 0
@@ -996,7 +998,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 147359160}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: GoToDeckManager
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1400,7 +1402,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 147359160}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: ReturnBackToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2269,9 +2271,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e2ed8a4c601daf341917a93e6792a8bd, type: 2}
   - {fileID: 11400000, guid: cf9f1386e019e5c4cb60a7d8c2bed5c3, type: 2}
   - {fileID: 11400000, guid: 8a8f2c115db1f76438da7a1ed3c3fff2, type: 2}
+  - {fileID: 11400000, guid: c8bc980823433d04b86810b7447a879a, type: 2}
+  - {fileID: 11400000, guid: 989678f1a9d1c7b41ad008704c2bb1ad, type: 2}
+  - {fileID: 11400000, guid: 71215f08c3ae65244bc788b8ce3bd395, type: 2}
+  - {fileID: 11400000, guid: b820091efc84a174fb70a73a9d9c8e07, type: 2}
   buttonPrefab: {fileID: 4923724576761722931, guid: f016cd724d74e7d4cbafd2a5ff5ad5e3, type: 3}
   buttonsParent: {fileID: 657695679}
   deckCountText: {fileID: 1145230220}
+  filterText: {fileID: 1587291643}
   selectedCards: []
   maxCardOnDeck: 25
 --- !u!1 &1891264920

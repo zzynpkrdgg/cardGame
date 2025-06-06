@@ -2319,9 +2319,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomizeDeck: 1
-  deckToUse: []
   waitForDrawing: 0.25
   bmoCard: {fileID: 11400000, guid: 64b8a045fbe729043898f3bcb44672e7, type: 2}
+  robotCard: {fileID: 11400000, guid: 9ff791a4c2e871f428bed95207377757, type: 2}
   alienDeck:
   - {fileID: 11400000, guid: ebc7f6f160155a64892a1ffbfbb57e33, type: 2}
   - {fileID: 11400000, guid: a3256d9c18759a74d9346fa00cdbd343, type: 2}

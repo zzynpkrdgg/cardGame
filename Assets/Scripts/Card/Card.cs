@@ -316,7 +316,7 @@ public class Card : MonoBehaviour
 
             case CardScriptableObject.cardSkills.ben10:
                 if (assignedPlace.isPlayerPoint)
-                    DeckController.Instance.DrawAlienToHand();
+                    DeckController.Instance.DrawAlienToHand(cardSO.buffValue);
                 break;
 
             case CardScriptableObject.cardSkills.flapjack:
@@ -350,6 +350,10 @@ public class Card : MonoBehaviour
 
             case CardScriptableObject.cardSkills.tom:
                 TomSkill();
+                break;
+
+            case CardScriptableObject.cardSkills.robot:
+                DeckController.Instance.DrawRobotToHand();
                 break;
 
             case CardScriptableObject.cardSkills.none:
@@ -550,5 +554,27 @@ public class Card : MonoBehaviour
             }
         }
     }
+
+    public void ConquestSkill()
+    {
+        bool isPlayerSide = assignedPlace.isPlayerPoint;
+
+        CardPlacePoint[] allies;
+
+        if (isPlayerSide)
+            allies = CardPointsController.instance.playerCardPoints;
+        else
+            allies = CardPointsController.instance.enemyCardPoints;
+
+        foreach (var allyPoint in allies)
+        {
+            if (allyPoint.activeCard != null && allyPoint.activeCard.cardSO.cardsSkill == CardScriptableObject.cardSkills.conquest)
+            {
+                if (allyPoint.activeCard.attackPower >= allyPoint.activeCard.cardSO.buffValue)
+                    allyPoint.activeCard.canOverwhelm = true;
+            }
+        }
+    }
+
 
 }

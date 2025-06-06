@@ -14,6 +14,7 @@ public class DeckController : MonoBehaviour
     private MyStack<CardScriptableObject> activeCards= new MyStack<CardScriptableObject>();
     [SerializeField] private float waitForDrawing = .25f;
     public CardScriptableObject bmoCard;
+    public CardScriptableObject robotCard;
 
     public List<CardScriptableObject> alienDeck = new List<CardScriptableObject>();
     [SerializeField] private MyStack<CardScriptableObject> activeAliens = new MyStack<CardScriptableObject>();
@@ -30,12 +31,6 @@ public class DeckController : MonoBehaviour
         TransferDeck();
         SetUpDeck();
         SetUpAlienDeck();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-            DrawAlienToHand();
     }
 
     private void TransferDeck()
@@ -102,6 +97,14 @@ public class DeckController : MonoBehaviour
         HandController.instance.AddBMOToHand(newCard);
     }
 
+    public void DrawRobotToHand()
+    {
+        Card newCard = Instantiate(cardToSpawn, transform.position, transform.rotation);
+        newCard.cardSO = robotCard;
+        newCard.SetupCard();
+        HandController.instance.AddCardToHand(newCard);
+    }
+
     public void Shuffle(List<CardScriptableObject> list) 
     {
         for (int i = 0; i < list.Count; i++)
@@ -113,24 +116,27 @@ public class DeckController : MonoBehaviour
         }
     }
 
-    public void DrawAlienToHand()
+    public void DrawAlienToHand(int value)
     {
-        if (HandController.instance.heldCard.Count < 10)
+        for (int i = 0; i < value; i++)
         {
-            if (activeCards.IsEmpty())
+            if (HandController.instance.heldCard.Count < 10)
             {
-                SetUpAlienDeck();
+                if (activeCards.IsEmpty())
+                {
+                    SetUpAlienDeck();
+                }
+                if (!activeCards.IsEmpty())
+                {
+                    Card newCard = Instantiate(cardToSpawn, transform.position, transform.rotation);
+                    newCard.cardSO = activeAliens.Pop();
+                    newCard.SetupCard();
+                    HandController.instance.AddCardToHand(newCard);
+                }
             }
-            if (!activeCards.IsEmpty())
-            {
-                Card newCard = Instantiate(cardToSpawn, transform.position, transform.rotation);
-                newCard.cardSO = activeAliens.Pop();
-                newCard.SetupCard();
-                HandController.instance.AddCardToHand(newCard);
-            }
+            else
+                Debug.Log("Max Hand");
         }
-        else
-            Debug.Log("Max Hand");
     }
 
     public void DrawCardForMana(int manaCost)

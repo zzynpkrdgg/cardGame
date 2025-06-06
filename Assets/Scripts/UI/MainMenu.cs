@@ -3,17 +3,21 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public string battleSelectedscene;
-    
-    void Start()
-    {
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject deckMenu;
 
+    public void GoToDeckManager()
+    {
+        mainMenu.SetActive(false);
+        deckMenu.SetActive(true);
     }
 
-    
-    void Update()
+    public void ReturnBackToMainMenu()
     {
-
+        mainMenu.SetActive(true);
+        deckMenu.SetActive(false);
     }
+
     public void StartGame()
     {
         SceneManager.LoadScene(battleSelectedscene);
