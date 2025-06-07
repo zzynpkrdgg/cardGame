@@ -88,6 +88,7 @@ public class UI_DeckBuilder : MonoBehaviour
         {
             selectedCards.Add(card);
             HandleCountText();
+            UI_DeckPanel.instance.ShowPanel(card);
         }
     }
 
@@ -97,6 +98,7 @@ public class UI_DeckBuilder : MonoBehaviour
         {
             selectedCards.Remove(card);
             HandleCountText();
+            UI_DeckPanel.instance.RemovePanel(card);
         }
     }
 }
